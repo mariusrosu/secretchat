@@ -2,6 +2,7 @@ package com.example.marosu.secretchat.chatList;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -36,6 +37,7 @@ public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        chatList.setLayoutManager(new LinearLayoutManager(this));
         presenter.getConversations(getResources().openRawResource(R.raw.user_data));
     }
 
@@ -45,6 +47,7 @@ public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresent
         chatList.setVisibility(View.VISIBLE);
         if (adapter == null) {
             adapter = new ChatListAdapter(conversations);
+            chatList.setAdapter(adapter);
         } else {
             adapter.updateConversations(conversations);
         }

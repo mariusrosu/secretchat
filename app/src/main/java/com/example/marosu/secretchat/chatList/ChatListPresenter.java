@@ -41,6 +41,7 @@ public class ChatListPresenter extends BasePresenter<ChatListView> {
         protected User doInBackground(InputStream... inputStreams) {
             Writer writer = new StringWriter();
             try {
+                Thread.sleep(3000);
                 final InputStream is = inputStreams[0];
 
                 char[] buffer = new char[1024];
@@ -53,7 +54,7 @@ public class ChatListPresenter extends BasePresenter<ChatListView> {
                 } finally {
                     is.close();
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
 
             }
             Log.d("Debugging", writer.toString());

@@ -4,11 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.model.Conversation;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
@@ -30,6 +34,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conversation conversation = conversations.get(position);
+        holder.title.setText(conversation.getParticipant().getEmail());
+        holder.preview.setText(conversation.getLastMessage().getText());
     }
 
     @Override
@@ -43,9 +49,19 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.conversation_title)
+        TextView title;
+
+        @BindView(R.id.conversation_preview)
+        TextView preview;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface OnConversationClickListener {
+        void onConversationClick();
     }
 }
