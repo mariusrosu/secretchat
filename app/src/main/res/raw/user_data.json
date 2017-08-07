@@ -1,0 +1,43 @@
+{
+  "id":2001,
+  "name":"Marius Rosu",
+  "email":"marius.andrei.xd@gmail.com",
+  "conversations": {
+    "con_id_1": {
+      "participant": {
+        "id":3001,
+        "name":"Adrian Vas",
+        "email":"adi.vas10@yahoo.com"
+      },
+      "lastMessage": {
+        "id":"message_id_1",
+        "text": "Hellllow",
+        "senderId": 3001
+      }
+    },
+    "con_id_2": {
+      "participant": {
+        "id":3002,
+        "name":"Neymar Jr.",
+        "email":"neymar_jr@psg.com"
+      },
+      "lastMessage": {
+        "id":"message_id_2",
+        "text": "Bye Bye Barcelonaaa!",
+        "senderId": 3002
+      }
+    },
+    "con_id_31": {
+      "participant": {
+        "id":3003,
+        "name":"Messi",
+        "email":"messi@yahoo.com"
+      },
+      "lastMessage": {
+        "id":"message_id_3",
+        "text": "lalalalalal",
+        "senderId": 2001
+      }
+    }
+  }
+}
