@@ -5,4 +5,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="send">Send</string>
+
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_password">Password must be at least %d characters</string>
 </resources>

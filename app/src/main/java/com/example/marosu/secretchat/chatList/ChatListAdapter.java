@@ -13,15 +13,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
     private List<Conversation> conversations;
+    private final PublishSubject<String> onClickSubject;
 
     public ChatListAdapter(List<Conversation> conversations) {
         this.conversations = conversations;
+        this.onClickSubject = PublishSubject.create();
     }
 
     @Override
@@ -36,6 +40,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         final Conversation conversation = conversations.get(position);
         holder.title.setText(conversation.getParticipant().getEmail());
         holder.preview.setText(conversation.getLastMessage().getText());
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickSubject.onNext(conversation.getId());
+            }
+        });
     }
 
     @Override
@@ -48,7 +58,14 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public Observable<String> getPositionClicks() {
+        return onClickSubject.asObservable();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.conversation_item)
+        ViewGroup item;
+
         @BindView(R.id.conversation_title)
         TextView title;
 
@@ -59,9 +76,5 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public interface OnConversationClickListener {
-        void onConversationClick();
     }
 }

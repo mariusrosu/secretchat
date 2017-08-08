@@ -3,6 +3,7 @@ package com.example.marosu.secretchat.auth.login;
 import android.os.AsyncTask;
 
 import com.example.marosu.secretchat.base.BasePresenter;
+import com.example.marosu.secretchat.util.Util;
 
 import java.lang.ref.WeakReference;
 
@@ -12,6 +13,14 @@ import java.lang.ref.WeakReference;
 public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void login(String username, String password) {
+        if (!Util.isEmailValid(username)) {
+            getView().onEmailInvalid();
+            return;
+        }
+        if (!Util.isPasswordValid(password)) {
+            getView().onPasswordInvalid();
+            return;
+        }
         //TODO: Implement login!
         new FakeLoginTask(getView()).execute();
     }
