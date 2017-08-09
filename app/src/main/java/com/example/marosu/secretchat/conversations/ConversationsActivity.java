@@ -1,8 +1,9 @@
-package com.example.marosu.secretchat.chatList;
+package com.example.marosu.secretchat.conversations;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
-import com.example.marosu.secretchat.chatDetails.ChatDetailsActivity;
+import com.example.marosu.secretchat.messages.MessagesActivity;
 import com.example.marosu.secretchat.model.Conversation;
 
 import java.util.List;
@@ -18,18 +19,18 @@ import java.util.List;
 import butterknife.BindView;
 import rx.functions.Action1;
 
-public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresenter> implements ChatListView {
+public class ConversationsActivity extends BaseActivity<ConversationsView, ConversationsPresenter> implements ConversationsView {
     @BindView(R.id.chat_list_loading)
     ProgressBar loadingSpinner;
 
     @BindView(R.id.chat_list_recycler)
     RecyclerView chatList;
 
-    private ChatListAdapter adapter;
+    private ConversationsAdapter adapter;
 
     @Override
-    protected ChatListPresenter initPresenter() {
-        return new ChatListPresenter();
+    protected ConversationsPresenter initPresenter() {
+        return new ConversationsPresenter();
     }
 
     @Override
@@ -41,6 +42,8 @@ public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresent
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chatList.setLayoutManager(new LinearLayoutManager(this));
+        chatList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        chatList.setHasFixedSize(true);
         presenter.getConversations(getResources().openRawResource(R.raw.user_data));
     }
 
@@ -49,7 +52,7 @@ public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresent
         loadingSpinner.setVisibility(View.GONE);
         chatList.setVisibility(View.VISIBLE);
         if (adapter == null) {
-            adapter = new ChatListAdapter(conversations);
+            adapter = new ConversationsAdapter(conversations);
             adapter.getPositionClicks().subscribe(new OnConversationClickSubscriber());
             chatList.setAdapter(adapter);
         } else {
@@ -61,7 +64,7 @@ public class ChatListActivity extends BaseActivity<ChatListView, ChatListPresent
 
         @Override
         public void call(String conversationId) {
-            startActivity(new Intent(ChatListActivity.this, ChatDetailsActivity.class));
+            startActivity(new Intent(ConversationsActivity.this, MessagesActivity.class));
         }
     }
 }

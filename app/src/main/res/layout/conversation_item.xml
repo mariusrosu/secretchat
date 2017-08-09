@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/conversation_item"
     android:layout_width="match_parent"
@@ -7,10 +8,18 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <com.example.marosu.secretchat.util.AvatarView
+        android:id="@+id/conversation_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:titleSize="24sp" />
+
     <TextView
         android:id="@+id/conversation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/conversation_avatar"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="Conversation Title" />
@@ -19,6 +28,9 @@
         android:id="@+id/conversation_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/conversation_title"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/conversation_avatar"
         tools:text="Conversation preview" />
 
-</LinearLayout>
+</RelativeLayout>

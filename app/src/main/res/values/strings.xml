@@ -8,4 +8,6 @@
 
     <string name="invalid_email">Invalid email</string>
     <string name="invalid_password">Password must be at least %d characters</string>
+
+    <string name="conversations">Conversations</string>
 </resources>

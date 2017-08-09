@@ -1,11 +1,11 @@
-package com.example.marosu.secretchat.chatDetails;
+package com.example.marosu.secretchat.messages;
 
 import com.example.marosu.secretchat.base.BasePresenter;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class ChatDetailsPresenter extends BasePresenter<ChatDetailsView> {
+public class MessagesPresenter extends BasePresenter<MessagesView> {
     @Override
     public void onPresenterDestroy() {
 

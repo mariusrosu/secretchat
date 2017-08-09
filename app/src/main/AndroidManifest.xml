@@ -9,16 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".auth.login.LoginActivity">
+        <activity
+            android:name=".auth.login.LoginActivity"
+            android:theme="@style/AuthTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".auth.register.RegisterActivity" />
-        <activity android:name=".chatList.ChatListActivity" />
-        <activity android:name=".chatDetails.ChatDetailsActivity" />
+        <activity
+            android:name=".auth.register.RegisterActivity"
+            android:theme="@style/AuthTheme" />
+        <activity android:name=".conversations.ConversationsActivity" />
+        <activity android:name=".messages.MessagesActivity" />
     </application>
 
 </manifest>

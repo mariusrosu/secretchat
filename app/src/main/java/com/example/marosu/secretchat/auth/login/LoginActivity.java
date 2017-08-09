@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
-import com.example.marosu.secretchat.chatList.ChatListActivity;
+import com.example.marosu.secretchat.conversations.ConversationsActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @Override
     public void onLoginSuccess() {
-        final Intent chatListIntent = new Intent(this, ChatListActivity.class);
+        final Intent chatListIntent = new Intent(this, ConversationsActivity.class);
         startActivity(chatListIntent);
         finish();
     }

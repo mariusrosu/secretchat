@@ -1,4 +1,4 @@
-package com.example.marosu.secretchat.chatList;
+package com.example.marosu.secretchat.conversations;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,7 +19,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class ChatListPresenter extends BasePresenter<ChatListView> {
+public class ConversationsPresenter extends BasePresenter<ConversationsView> {
 
     public void getConversations(InputStream inputStream) {
         new FakeConversationsTask(getView()).execute(inputStream);
@@ -31,9 +31,9 @@ public class ChatListPresenter extends BasePresenter<ChatListView> {
     }
 
     private static class FakeConversationsTask extends AsyncTask<InputStream, Void, User> {
-        private WeakReference<ChatListView> viewWeakReference;
+        private WeakReference<ConversationsView> viewWeakReference;
 
-        public FakeConversationsTask(ChatListView view) {
+        public FakeConversationsTask(ConversationsView view) {
             this.viewWeakReference = new WeakReference<>(view);
         }
 
@@ -63,7 +63,7 @@ public class ChatListPresenter extends BasePresenter<ChatListView> {
 
         @Override
         protected void onPostExecute(User user) {
-            final ChatListView view = viewWeakReference.get();
+            final ConversationsView view = viewWeakReference.get();
             if (view != null) {
                 view.onConversationsLoaded(user.getConversations());
             }

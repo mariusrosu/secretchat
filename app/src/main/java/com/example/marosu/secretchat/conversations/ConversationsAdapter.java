@@ -1,4 +1,4 @@
-package com.example.marosu.secretchat.chatList;
+package com.example.marosu.secretchat.conversations;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.model.Conversation;
+import com.example.marosu.secretchat.util.AvatarView;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ import rx.subjects.PublishSubject;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> {
+public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
     private List<Conversation> conversations;
     private final PublishSubject<String> onClickSubject;
 
-    public ChatListAdapter(List<Conversation> conversations) {
+    public ConversationsAdapter(List<Conversation> conversations) {
         this.conversations = conversations;
         this.onClickSubject = PublishSubject.create();
     }
@@ -38,6 +39,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conversation conversation = conversations.get(position);
+        holder.avatar.setUser(conversation.getParticipant());
         holder.title.setText(conversation.getParticipant().getEmail());
         holder.preview.setText(conversation.getLastMessage().getText());
         holder.item.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +67,9 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.conversation_item)
         ViewGroup item;
+
+        @BindView(R.id.conversation_avatar)
+        AvatarView avatar;
 
         @BindView(R.id.conversation_title)
         TextView title;
