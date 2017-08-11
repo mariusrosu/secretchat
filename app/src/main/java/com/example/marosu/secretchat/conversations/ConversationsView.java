@@ -14,4 +14,7 @@ public interface ConversationsView extends BaseContract.View {
     void onConversationsEmpty();
 
     void onConversationsFailed();
+
+    //TODO: Remove this after the backend is ready
+    String getConversationsJson();
 }

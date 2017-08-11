@@ -13,10 +13,14 @@ import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
 import com.example.marosu.secretchat.messages.MessagesActivity;
 import com.example.marosu.secretchat.model.entity.Conversation;
+import com.example.marosu.secretchat.search.SearchActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.functions.Consumer;
 
 import static android.view.View.GONE;
@@ -98,5 +102,37 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
                 startActivity(messagesIntent);
             }
         });
+    }
+
+    @OnClick(R.id.try_again)
+    void onTryAgainClick() {
+        loadingSpinner.setVisibility(VISIBLE);
+        chatListEmpty.setVisibility(GONE);
+        chatListError.setVisibility(GONE);
+        chatList.setVisibility(GONE);
+        presenter.getConversations();
+    }
+
+    @OnClick(R.id.chat_list_add)
+    void onAddClick() {
+        final Intent searchIntent = new Intent(this, SearchActivity.class);
+        startActivity(searchIntent);
+    }
+
+    //TODO: Remove this after the backend is ready.
+    public String getConversationsJson() {
+        String json;
+        try {
+            InputStream is = getResources().openRawResource(R.raw.user_data);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return json;
     }
 }
