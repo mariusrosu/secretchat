@@ -7,26 +7,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.model.Conversation;
+import com.example.marosu.secretchat.model.entity.Conversation;
+import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.entity.User;
 import com.example.marosu.secretchat.util.AvatarView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
     private List<Conversation> conversations;
-    private final PublishSubject<String> onClickSubject;
+    private PublishSubject<Conversation> clickSubject = PublishSubject.create();
 
     public ConversationsAdapter(List<Conversation> conversations) {
         this.conversations = conversations;
-        this.onClickSubject = PublishSubject.create();
     }
 
     @Override
@@ -39,15 +39,19 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conversation conversation = conversations.get(position);
-        holder.avatar.setUser(conversation.getParticipant());
-        holder.title.setText(conversation.getParticipant().getEmail());
-        holder.preview.setText(conversation.getLastMessage().getText());
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickSubject.onNext(conversation.getId());
+                clickSubject.onNext(conversation);
             }
         });
+
+        final User participant = conversation.getParticipants().get(0);
+        holder.avatar.setUser(participant);
+        holder.title.setText(participant.getFullName());
+
+        final Message lastMessage = conversation.getMessages().get(0);
+        holder.preview.setText(lastMessage.getContent());
     }
 
     @Override
@@ -60,8 +64,8 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         notifyDataSetChanged();
     }
 
-    public Observable<String> getPositionClicks() {
-        return onClickSubject.asObservable();
+    public PublishSubject<Conversation> getClickSubject() {
+        return clickSubject;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

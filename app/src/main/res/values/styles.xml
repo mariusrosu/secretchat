@@ -16,6 +16,13 @@
         <item name="colorControlActivated">@color/colorControlActivated</item>
     </style>
 
+    <style name="ErrorTitleStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <declare-styleable name="AvatarView">
         <attr name="titleText" format="string" />
         <attr name="titleSize" format="dimension" />

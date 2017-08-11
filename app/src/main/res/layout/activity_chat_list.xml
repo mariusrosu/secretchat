@@ -18,4 +18,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+    <include
+        android:id="@+id/chat_list_empty"
+        layout="@layout/conversations_empty"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/chat_list_error"
+        layout="@layout/conversations_error"
+        android:visibility="gone" />
+
 </FrameLayout>

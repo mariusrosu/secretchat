@@ -5,9 +5,13 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="send">Send</string>
+    <string name="try_again">Try Again</string>
 
     <string name="invalid_email">Invalid email</string>
     <string name="invalid_password">Password must be at least %d characters</string>
 
     <string name="conversations">Conversations</string>
+
+    <string name="conversation_error_title">Oh snap!</string>
+    <string name="conversation_error_content">Something went wrong when fetching your messages...</string>
 </resources>

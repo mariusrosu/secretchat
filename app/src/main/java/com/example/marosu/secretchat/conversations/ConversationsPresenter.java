@@ -1,73 +1,59 @@
 package com.example.marosu.secretchat.conversations;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.marosu.secretchat.base.BasePresenter;
-import com.example.marosu.secretchat.model.User;
-import com.google.gson.Gson;
+import com.example.marosu.secretchat.model.SecretChatApi;
+import com.example.marosu.secretchat.model.SecretChatClient;
+import com.example.marosu.secretchat.model.entity.Conversation;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.lang.ref.WeakReference;
+import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public class ConversationsPresenter extends BasePresenter<ConversationsView> {
+    private SecretChatApi api;
 
-    public void getConversations(InputStream inputStream) {
-        new FakeConversationsTask(getView()).execute(inputStream);
+    public ConversationsPresenter() {
+        this.api = SecretChatClient.createApi();
+    }
+
+    public void getConversations() {
+        api.getAllConversations()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<Conversation>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.d("Debugging", "onSubscribe(): d = " + d);
+                    }
+
+                    @Override
+                    public void onSuccess(List<Conversation> conversations) {
+                        Log.d("Debugging", "onNext(): value = " + conversations);
+                        if (conversations == null || conversations.isEmpty()) {
+                            getView().onConversationsEmpty();
+                        } else {
+                            getView().onConversationsLoaded(conversations);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("Debugging", "onError(): e = " + e);
+                        getView().onConversationsFailed();
+                    }
+                });
     }
 
     @Override
     public void onPresenterDestroy() {
         detachView();
-    }
-
-    private static class FakeConversationsTask extends AsyncTask<InputStream, Void, User> {
-        private WeakReference<ConversationsView> viewWeakReference;
-
-        public FakeConversationsTask(ConversationsView view) {
-            this.viewWeakReference = new WeakReference<>(view);
-        }
-
-        @Override
-        protected User doInBackground(InputStream... inputStreams) {
-            Writer writer = new StringWriter();
-            try {
-                Thread.sleep(3000);
-                final InputStream is = inputStreams[0];
-
-                char[] buffer = new char[1024];
-                try {
-                    Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                    int n;
-                    while ((n = reader.read(buffer)) != -1) {
-                        writer.write(buffer, 0, n);
-                    }
-                } finally {
-                    is.close();
-                }
-            } catch (IOException | InterruptedException e) {
-
-            }
-            Log.d("Debugging", writer.toString());
-            return new Gson().fromJson(writer.toString(), User.class);
-        }
-
-        @Override
-        protected void onPostExecute(User user) {
-            final ConversationsView view = viewWeakReference.get();
-            if (view != null) {
-                view.onConversationsLoaded(user.getConversations());
-            }
-
-        }
     }
 }

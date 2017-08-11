@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/chat_details_send" />
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/messages_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

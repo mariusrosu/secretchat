@@ -3,11 +3,14 @@ package com.example.marosu.secretchat.base;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter<V>, LifecycleObserver {
     private V view;
+    protected CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     final public void attachView(V view) {

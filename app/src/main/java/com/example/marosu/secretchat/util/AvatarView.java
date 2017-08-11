@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.model.User;
+import com.example.marosu.secretchat.model.entity.User;
 
 /**
  * Created by Marius-Andrei Rosu on 8/8/2017.
@@ -147,7 +147,6 @@ public class AvatarView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         mInnerRectF.set(0, 0, mViewSize, mViewSize);
         mInnerRectF.offset((getWidth() - mViewSize) / 2, (getHeight() - mViewSize) / 2);
 
@@ -158,11 +157,7 @@ public class AvatarView extends View {
         int yPos = (int) (centerY - (mTitleTextPaint.descent() + mTitleTextPaint.ascent()) / 2);
 
         canvas.drawOval(mInnerRectF, mBackgroundPaint);
-
-        canvas.drawText(mTitleText,
-                xPos,
-                yPos,
-                mTitleTextPaint);
+        canvas.drawText(mTitleText, xPos, yPos, mTitleTextPaint);
     }
 
     public void setUser(User user) {

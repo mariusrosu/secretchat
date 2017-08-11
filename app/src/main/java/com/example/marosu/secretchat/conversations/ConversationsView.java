@@ -1,7 +1,7 @@
 package com.example.marosu.secretchat.conversations;
 
 import com.example.marosu.secretchat.base.BaseContract;
-import com.example.marosu.secretchat.model.Conversation;
+import com.example.marosu.secretchat.model.entity.Conversation;
 
 import java.util.List;
 
@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface ConversationsView extends BaseContract.View {
     void onConversationsLoaded(List<Conversation> conversations);
+
+    void onConversationsEmpty();
+
+    void onConversationsFailed();
 }
