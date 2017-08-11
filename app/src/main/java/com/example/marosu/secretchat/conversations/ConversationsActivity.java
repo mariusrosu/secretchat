@@ -49,7 +49,7 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_chat_list;
+        return R.layout.activity_conversations;
     }
 
     @Override

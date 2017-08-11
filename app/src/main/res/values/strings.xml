@@ -8,11 +8,11 @@
     <string name="try_again">Try Again</string>
     <string name="search">Search</string>
 
-    <string name="invalid_email">Invalid email</string>
-    <string name="invalid_password">Password must be at least %d characters</string>
-
     <string name="conversations">Conversations</string>
 
+    <string name="invalid_email">Invalid email</string>
+    <string name="invalid_password">Password must be at least %d characters</string>
     <string name="conversation_error_title">Oh snap!</string>
     <string name="conversation_error_content">Something went wrong when fetching your messages...</string>
+    <string name="say_something">Say something...</string>
 </resources>

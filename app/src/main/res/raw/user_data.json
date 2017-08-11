@@ -1,53 +1,57 @@
 [
   {
-  "id":"ff8080815dc753ac015dc755fcfb0001",
-  "createdDtm":1.502287888E12,
-  "userId":"ff8080815dc1be6b015dc1c3a9bb0002",
-  "messages":[
-    {
-      "id":"ff8080815dc753ac015dc75679820002",
-      "content":"Ce faci?",
-      "createdDtm":1.502289919E12,
-      "updatedDtm":1.502289919E12,
-      "conversationId":"ff8080815dc753ac015dc755fcfb0001"
-    },
-    {
-      "id":"ff8080815dc753ac015dc75679820003",
-      "content":"Da bine, ba.. uite acilea?",
-      "createdDtm":1.502287919E12,
-      "updatedDtm":1.502287919E12,
-      "conversationId":"ff8080815dc753ac015dc755fcfb0001"
-    },
-    {
-      "id":"ff8080815dc753ac015dc75697d90004",
-      "content":"TU?",
-      "createdDtm":1.502287927E12,
-      "updatedDtm":1.502287927E12,
-      "conversationId":"ff8080815dc753ac015dc755fcfb0001"
-    },
-    {
-      "id":"ff8080815dc76295015dc76469ea0000",
-      "content":"Ok-ish?",
-      "createdDtm":1.502288833E12,
-      "updatedDtm":1.502288833E12,
-      "conversationId":"ff8080815dc753ac015dc755fcfb0001"
-    }
-  ],
-  "participants":[
-    {
-      "id":"ff8080815dc1be6b015dc1c3a9bb0002",
-      "firstName":"Adi0",
-      "lastName":"Vas",
-      "email":"email2@gmail.com",
-      "password":"ssh"
-    },
-    {
-      "id":"ff8080815dc1be6b015dc1c3a9bb5423",
-      "firstName":"Marius",
-      "lastName":"Rosu",
-      "email":"marius_rosu@gmail.com",
-      "password":"ssh"
-    }
-  ]
+    "id": "ff8080815dc753ac015dc755fcfb0001",
+    "createdDtm": 1.502287888E12,
+    "userId": "ff8080815dc1be6b015dc1c3a9bb0002",
+    "messages": [
+      {
+        "id": "ff8080815dc753ac015dc75679820002",
+        "content": "Ce faci?",
+        "createdDtm": 1.502289919E12,
+        "updatedDtm": 1.502289919E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb0002",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0001"
+      },
+      {
+        "id": "ff8080815dc753ac015dc75679820003",
+        "content": "Da bine, ba.. uite acilea?",
+        "createdDtm": 1.502287919E12,
+        "updatedDtm": 1.502287919E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0001"
+      },
+      {
+        "id": "ff8080815dc753ac015dc75697d90004",
+        "content": "TU?",
+        "createdDtm": 1.502287927E12,
+        "updatedDtm": 1.502287927E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0001"
+      },
+      {
+        "id": "ff8080815dc76295015dc76469ea0000",
+        "content": "Ok-ish?",
+        "createdDtm": 1.502288833E12,
+        "updatedDtm": 1.502288833E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0001"
+      }
+    ],
+    "participants": [
+      {
+        "id": "ff8080815dc1be6b015dc1c3a9bb0002",
+        "firstName": "Adi0",
+        "lastName": "Vas",
+        "email": "email2@gmail.com",
+        "password": "ssh"
+      },
+      {
+        "id": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "firstName": "Marius",
+        "lastName": "Rosu",
+        "email": "marius_rosu@gmail.com",
+        "password": "ssh"
+      }
+    ]
   }
 ]

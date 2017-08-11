@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
@@ -29,13 +30,13 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
 
     public void getConversations() {
        /* api.getAllConversations()*/
-        getData()
-                .observeOn(AndroidSchedulers.mainThread())
+        getData().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new SingleObserver<List<Conversation>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.d("Debugging", "onSubscribe(): d = " + d);
+                        disposables.add(d);
                     }
 
                     @Override
@@ -68,6 +69,6 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
         final List<Conversation> conversations = new Gson().fromJson(conversationsJson,
                 new TypeToken<List<Conversation>>() {
                 }.getType());
-        return Single.just(conversations);
+        return Single.just(conversations).delay(2000, TimeUnit.MILLISECONDS);
     }
 }

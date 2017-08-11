@@ -19,14 +19,16 @@
         <activity
             android:name=".auth.register.RegisterActivity"
             android:theme="@style/AuthTheme" />
-        <activity android:name=".conversations.ConversationsActivity" >
+        <activity android:name=".conversations.ConversationsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".messages.MessagesActivity" />
+        <activity
+            android:name=".messages.MessagesActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".search.SearchActivity"
             android:label="@string/search" />

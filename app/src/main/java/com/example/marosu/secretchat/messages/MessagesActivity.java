@@ -26,7 +26,7 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_chat_details;
+        return R.layout.activity_messages;
     }
 
     @Override
