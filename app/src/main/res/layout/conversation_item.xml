@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:background="?android:attr/selectableItemBackground"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
 
     <com.example.marosu.secretchat.util.AvatarView
         android:id="@+id/conversation_avatar"
@@ -18,10 +21,10 @@
         android:id="@+id/conversation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/conversation_avatar"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         tools:text="Conversation Title" />
 
     <TextView
@@ -29,8 +32,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/conversation_title"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/conversation_avatar"
         tools:text="Conversation preview" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@id/conversation_title"
+        android:layout_below="@id/conversation_avatar"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color" />
 
 </RelativeLayout>

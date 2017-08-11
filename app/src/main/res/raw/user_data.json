@@ -40,9 +40,87 @@
     "participants": [
       {
         "id": "ff8080815dc1be6b015dc1c3a9bb0002",
-        "firstName": "Adi0",
+        "firstName": "Adi",
         "lastName": "Vas",
         "email": "email2@gmail.com",
+        "password": "ssh"
+      },
+      {
+        "id": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "firstName": "Marius",
+        "lastName": "Rosu",
+        "email": "marius_rosu@gmail.com",
+        "password": "ssh"
+      }
+    ]
+  },
+  {
+    "id": "ff8080815dc753ac015dc755fcfb0002",
+    "userId": "ff8080815dc1be6b015dc1c3a9bb0002",
+    "messages": [
+      {
+        "id": "ff8080815dc753ac015dc75679821112",
+        "content": "Hey man $$",
+        "createdDtm": 1.502289919E12,
+        "updatedDtm": 1.502289919E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb1112",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc753ac015dc75679821113",
+        "content": "Hi!",
+        "createdDtm": 1.502287919E12,
+        "updatedDtm": 1.502287919E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc753ac015dc75697d91114",
+        "content": "How are you?",
+        "createdDtm": 1.502287927E12,
+        "updatedDtm": 1.502287927E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc76295015dc76469ea1111",
+        "content": "Good?",
+        "createdDtm": 1.502288833E12,
+        "updatedDtm": 1.502288833E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc76295015dc76469ea1143",
+        "content": "Yes. I am writing this long message to see how it looks on the new layout.",
+        "createdDtm": 1.502288833E12,
+        "updatedDtm": 1.502288833E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb1112",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc76295015dc76469ea1144",
+        "content": "It's nice",
+        "createdDtm": 1.502288833E12,
+        "updatedDtm": 1.502288833E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb1112",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      },
+      {
+        "id": "ff8080815dc76295015dc76469ea1145",
+        "content": "OK lol!",
+        "createdDtm": 1.502288833E12,
+        "updatedDtm": 1.502288833E12,
+        "senderId": "ff8080815dc1be6b015dc1c3a9bb5423",
+        "conversationId": "ff8080815dc753ac015dc755fcfb0002"
+      }
+    ],
+    "participants": [
+      {
+        "id": "ff8080815dc1be6b015dc1c3a9bb1112",
+        "firstName": "Neymar",
+        "lastName": "Junior",
+        "email": "neymar_psg@gmail.com",
         "password": "ssh"
       },
       {

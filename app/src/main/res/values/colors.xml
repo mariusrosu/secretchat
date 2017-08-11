@@ -8,4 +8,5 @@
     <color name="colorControlActivated">#c2185b</color>
 
     <color name="light_gray">#aeaeae</color>
+    <color name="divider_color">#efefef</color>
 </resources>

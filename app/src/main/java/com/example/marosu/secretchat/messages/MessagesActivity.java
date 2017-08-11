@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
@@ -32,12 +33,24 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Bundle extra = getIntent().getExtras();
-        if (extra != null) {
-            final Conversation conversation = extra.getParcelable(CONVERSATION_EXTRA);
-            onConversationLoaded(conversation);
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        presenter.handleExtras(getIntent().getExtras());
         messagesList.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setConversationTitle(String title) {
+        setTitle(title);
     }
 
     @Override

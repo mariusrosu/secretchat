@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.example.marosu.secretchat.R;
@@ -84,56 +84,6 @@ public class AvatarView extends View {
         mInnerRectF = new RectF();
     }
 
-    private int generateBackgroundColor(String title) {
-        final int color;
-        switch (title) {
-            case "A":
-            case "B":
-            case "C":
-            case "D":
-            case "E":
-                color = Color.RED;
-                break;
-            case "G":
-            case "H":
-            case "I":
-            case "F":
-                color = Color.BLUE;
-                break;
-            case "J":
-            case "K":
-            case "L":
-                color = Color.GRAY;
-                break;
-            case "M":
-            case "N":
-            case "O":
-                color = Color.GREEN;
-                break;
-            case "P":
-            case "Q":
-            case "R":
-                color = Color.MAGENTA;
-                break;
-            case "S":
-            case "T":
-            case "U":
-                color = Color.YELLOW;
-                break;
-            case "V":
-            case "X":
-            case "Y":
-            case "W":
-            case "Z":
-                color = Color.YELLOW;
-                break;
-            default:
-                color = DEFAULT_BACKGROUND_COLOR;
-                break;
-        }
-        return color;
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -167,8 +117,7 @@ public class AvatarView extends View {
         } else {
             mTitleText = DEFAULT_TITLE;
         }
-        Log.d("Debugging", "generatedBackgroundColor(): title = " + title + ", mTitleText = " + mTitleText + ", color = " + generateBackgroundColor(mTitleText));
-        mBackgroundColor = generateBackgroundColor(mTitleText);
+        mBackgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         invalidate();
     }
 }

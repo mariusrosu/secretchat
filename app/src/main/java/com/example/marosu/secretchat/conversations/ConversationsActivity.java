@@ -56,7 +56,6 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chatList.setLayoutManager(new LinearLayoutManager(this));
-        chatList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         chatList.setHasFixedSize(true);
         presenter.getConversations();
     }
