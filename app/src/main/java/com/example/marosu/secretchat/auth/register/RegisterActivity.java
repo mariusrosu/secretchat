@@ -1,15 +1,17 @@
 package com.example.marosu.secretchat.auth.register;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import com.example.marosu.secretchat.R;
+import com.example.marosu.secretchat.base.BaseActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity<RegisterView, RegisterPresenter> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    protected RegisterPresenter initPresenter() {
+        return new RegisterPresenter();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_register;
     }
 }

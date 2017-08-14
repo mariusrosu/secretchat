@@ -21,6 +21,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             getView().onPasswordInvalid();
             return;
         }
+        getView().showLoading();
         //TODO: Implement login!
         new FakeLoginTask(getView()).execute();
     }

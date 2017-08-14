@@ -13,4 +13,6 @@ public interface LoginView extends BaseContract.View {
     void onLoginSuccess();
 
     void onLoginFail();
+
+    void showLoading();
 }

@@ -7,6 +7,11 @@
     <string name="send">Send</string>
     <string name="try_again">Try Again</string>
     <string name="search">Search</string>
+    <string name="register">Register</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last name</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="login_in">Logging in...</string>
 
     <string name="conversations">Conversations</string>
 
@@ -15,4 +20,5 @@
     <string name="conversation_error_title">Oh snap!</string>
     <string name="conversation_error_content">Something went wrong when fetching your messages...</string>
     <string name="say_something">Say something...</string>
+    <string name="sign_up">New here? <b>Sign Up!</b></string>
 </resources>

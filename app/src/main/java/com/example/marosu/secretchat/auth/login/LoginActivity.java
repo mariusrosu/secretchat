@@ -1,23 +1,28 @@
 package com.example.marosu.secretchat.auth.login;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.marosu.secretchat.R;
+import com.example.marosu.secretchat.auth.register.RegisterActivity;
 import com.example.marosu.secretchat.base.BaseActivity;
 import com.example.marosu.secretchat.conversations.ConversationsActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 import static com.example.marosu.secretchat.util.Util.PASSWORD_MIN_LENGTH;
 
 public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView {
+    @BindView(R.id.login_logo)
+    ImageView loginImage;
+
     @BindView(R.id.login_username_input_layout)
     TextInputLayout usernameInputLayot;
 
@@ -29,6 +34,8 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @BindView(R.id.login_password)
     EditText passwordText;
+
+    private ProgressDialog loadingDialog;
 
     @Override
     protected LoginPresenter initPresenter() {
@@ -43,8 +50,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        usernameText.addTextChangedListener(inputTextWatcher);
-        passwordText.addTextChangedListener(inputTextWatcher);
     }
 
     @Override
@@ -61,6 +66,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @Override
     public void onLoginSuccess() {
+        loadingDialog.dismiss();
         final Intent chatListIntent = new Intent(this, ConversationsActivity.class);
         startActivity(chatListIntent);
         finish();
@@ -68,32 +74,31 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @Override
     public void onLoginFail() {
+        loadingDialog.dismiss();
 
     }
 
+    @Override
+    public void showLoading() {
+        loadingDialog = ProgressDialog.show(this, getString(R.string.please_wait), getString(R.string.login_in), true);
+    }
+
+    @OnClick(R.id.login_register_label)
+    void onRegisterLabelClick() {
+        final Intent registerIntent = new Intent(this, RegisterActivity.class);
+        startActivity(registerIntent);
+    }
+
     @OnClick(R.id.login_button)
-    protected void onLoginClick() {
+    void onLoginClick() {
         final String username = usernameText.getText().toString();
         final String password = passwordText.getText().toString();
         presenter.login(username, password);
     }
 
-    private TextWatcher inputTextWatcher = new TextWatcher() {
-
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            //Not implemented
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            usernameInputLayot.setErrorEnabled(false);
-            passwordInputLayout.setErrorEnabled(false);
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            //Not implemented
-        }
-    };
+    @OnTextChanged({R.id.login_username, R.id.login_password})
+    void onCredentialsTextChanged() {
+        usernameInputLayot.setErrorEnabled(false);
+        passwordInputLayout.setErrorEnabled(false);
+    }
 }
