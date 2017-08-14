@@ -2,6 +2,7 @@ package com.example.marosu.secretchat.messages;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -11,12 +12,16 @@ import com.example.marosu.secretchat.base.BaseActivity;
 import com.example.marosu.secretchat.model.entity.Conversation;
 
 import butterknife.BindView;
+import butterknife.OnTextChanged;
 
 public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresenter> implements MessagesView {
     public static final String CONVERSATION_EXTRA = "conversation_extra";
 
     @BindView(R.id.messages_recycler)
     RecyclerView messagesList;
+
+    @BindView(R.id.messages_send)
+    FloatingActionButton messagesSend;
 
     private MessagesAdapter adapter;
 
@@ -63,6 +68,15 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
             messagesList.setAdapter(adapter);
         } else {
             adapter.updateMessages(conversation.getMessages());
+        }
+    }
+
+    @OnTextChanged(R.id.chat_details_input)
+    void onInputTextChanged(CharSequence text) {
+        if (text.length() > 0) {
+            messagesSend.show();
+        } else {
+            messagesSend.hide();
         }
     }
 }

@@ -7,7 +7,7 @@
     android:background="#e8e8e8"
     tools:context="com.example.marosu.secretchat.messages.MessagesActivity">
 
-    <EditText
+    <!--<EditText
         android:id="@+id/chat_details_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,19 +21,36 @@
         android:paddingBottom="8dp"
         android:paddingLeft="12dp"
         android:paddingRight="12dp"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp" />-->
+
+    <EditText
+        android:id="@+id/chat_details_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:hint="@string/say_something"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="48dp"
+        android:paddingTop="12dp" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/chat_details_input"
+        android:background="#c0c0c0" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/chat_details_send"
+        android:id="@+id/messages_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/chat_details_input"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/chat_details_input"
         android:layout_marginBottom="4dp"
         android:layout_marginRight="12dp"
         android:src="@mipmap/ic_send_white_24dp"
+        android:visibility="gone"
         app:backgroundTint="@color/colorAccent"
         app:elevation="8dp"
         app:fabSize="mini"
@@ -43,7 +60,7 @@
         android:id="@+id/messages_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp"
-        android:layout_above="@+id/chat_details_input" />
+        android:layout_above="@+id/chat_details_input"
+        android:paddingBottom="8dp" />
 
 </RelativeLayout>
