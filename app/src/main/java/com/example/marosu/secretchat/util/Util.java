@@ -1,5 +1,7 @@
 package com.example.marosu.secretchat.util;
 
+import android.text.format.DateUtils;
+
 import java.util.regex.Pattern;
 
 /**
@@ -19,5 +21,9 @@ public class Util {
 
     public static boolean isPasswordValid(CharSequence password) {
         return password.length() > PASSWORD_MIN_LENGTH;
+    }
+
+    public static CharSequence getRelativeTime(long time) {
+        return DateUtils.getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS);
     }
 }

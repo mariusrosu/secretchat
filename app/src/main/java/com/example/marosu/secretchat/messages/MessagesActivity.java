@@ -35,7 +35,10 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         presenter.handleExtras(getIntent().getExtras());
-        messagesList.setLayoutManager(new LinearLayoutManager(this));
+
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        messagesList.setLayoutManager(layoutManager);
     }
 
     @Override

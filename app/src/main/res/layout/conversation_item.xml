@@ -5,8 +5,8 @@
     android:id="@+id/conversation_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp">
@@ -35,6 +35,13 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/conversation_avatar"
         tools:text="Conversation preview" />
+
+    <TextView
+        android:id="@+id/conversation_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        tools:text="Yesterday"/>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -18,6 +18,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.subjects.PublishSubject;
 
+import static com.example.marosu.secretchat.util.Util.getRelativeTime;
+
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
@@ -52,6 +54,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
 
         final Message lastMessage = conversation.getMessages().get(0);
         holder.preview.setText(lastMessage.getContent());
+        holder.date.setText(getRelativeTime(lastMessage.getTimestamp()));
     }
 
     @Override
@@ -80,6 +83,9 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
 
         @BindView(R.id.conversation_preview)
         TextView preview;
+
+        @BindView(R.id.conversation_date)
+        TextView date;
 
         public ViewHolder(View itemView) {
             super(itemView);

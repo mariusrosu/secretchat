@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e8e8e8"
     tools:context="com.example.marosu.secretchat.messages.MessagesActivity">
 
     <EditText
@@ -14,7 +15,6 @@
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
         android:layout_toLeftOf="@+id/chat_details_send"
         android:background="@drawable/message_bar"
         android:hint="@string/say_something"
@@ -43,8 +43,7 @@
         android:id="@+id/messages_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chat_details_input"
-        android:layout_marginTop="8dp"
-        app:stackFromEnd="true" />
+        android:paddingBottom="8dp"
+        android:layout_above="@+id/chat_details_input" />
 
 </RelativeLayout>
