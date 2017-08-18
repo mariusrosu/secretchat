@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "734154120256",
+    "firebase_url": "https://secretchat-52bb5.firebaseio.com",
+    "project_id": "secretchat-52bb5",
+    "storage_bucket": "secretchat-52bb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734154120256:android:7c8462ec280a4410",
+        "android_client_info": {
+          "package_name": "com.example.marosu.secretchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734154120256-2bkvpgli5qij0sf1s965g7e1vj6129kj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.marosu.secretchat",
+            "certificate_hash": "964fe4c1e9f6b889dcc76258c9747d7c8fa18c7e"
+          }
+        },
+        {
+          "client_id": "734154120256-b07hictfguec1bpqc7p7psi4koeljund.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbyFKTFffaORdKUUztzhsLw8irvRLvk6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734154120256-b07hictfguec1bpqc7p7psi4koeljund.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

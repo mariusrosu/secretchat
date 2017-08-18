@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.0.0'
 
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-messaging:11.0.2'
     compile 'com.android.support:recyclerview-v7:26.0.0'
     compile 'com.android.support:design:26.0.0'
     compile "android.arch.lifecycle:runtime:1.0.0-alpha5"
@@ -59,3 +60,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
