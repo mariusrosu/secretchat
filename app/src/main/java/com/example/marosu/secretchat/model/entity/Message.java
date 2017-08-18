@@ -18,6 +18,13 @@ public class Message implements Parcelable {
     @SerializedName("createdDtm")
     private long timestamp;
 
+    private Message(String id, String content, String senderId, long timestamp) {
+        this.id = id;
+        this.content = content;
+        this.senderId = senderId;
+        this.timestamp = timestamp;
+    }
+
     public String getId() {
         return id;
     }
@@ -32,6 +39,31 @@ public class Message implements Parcelable {
 
     public long getTimestamp() {
         return timestamp;
+    }
+
+    public static class Builder {
+        private String content;
+        private String senderId;
+        private long timestamp;
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder setSenderId(String senderId) {
+            this.senderId = senderId;
+            return this;
+        }
+
+        public Builder setTimestamp(long timestamp) {
+            this.timestamp = timestamp;
+            return this;
+        }
+
+        public Message build() {
+            return new Message("id_1", content, senderId, timestamp);
+        }
     }
 
     protected Message(Parcel in) {

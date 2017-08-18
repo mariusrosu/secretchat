@@ -7,29 +7,15 @@
     android:background="#e8e8e8"
     tools:context="com.example.marosu.secretchat.messages.MessagesActivity">
 
-    <!--<EditText
-        android:id="@+id/chat_details_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/chat_details_send"
-        android:background="@drawable/message_bar"
-        android:hint="@string/say_something"
-        android:paddingBottom="8dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="8dp" />-->
-
     <EditText
-        android:id="@+id/chat_details_input"
+        android:id="@+id/message_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:hint="@string/say_something"
+        android:inputType="textCapSentences"
+        android:maxLines="1"
         android:paddingBottom="12dp"
         android:paddingLeft="12dp"
         android:paddingRight="48dp"
@@ -38,7 +24,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_above="@id/chat_details_input"
+        android:layout_above="@id/message_input"
         android:background="#c0c0c0" />
 
     <android.support.design.widget.FloatingActionButton
@@ -60,7 +46,7 @@
         android:id="@+id/messages_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chat_details_input"
+        android:layout_above="@+id/message_input"
         android:paddingBottom="8dp" />
 
 </RelativeLayout>

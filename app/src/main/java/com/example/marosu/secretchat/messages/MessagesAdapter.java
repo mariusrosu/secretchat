@@ -62,6 +62,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public int addMessage(Message message) {
+        messages.add(message);
+        int position = messages.size();
+        notifyItemInserted(position);
+        return position;
+    }
+
     private boolean isMessageOutgoing(String senderId) {
         return Session.getSession().getUserId().equals(senderId);
     }
