@@ -1,5 +1,6 @@
 package com.example.marosu.secretchat.model.entity;
 
+import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
+@Entity
 public class Conversation implements Parcelable {
     private String id;
     private List<Message> messages;

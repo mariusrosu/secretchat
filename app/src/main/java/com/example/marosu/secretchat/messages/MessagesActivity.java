@@ -38,7 +38,7 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
 
     @Override
     protected MessagesPresenter initPresenter() {
-        return new MessagesPresenter();
+        return new MessagesPresenter(getApplicationContext());
     }
 
     @Override
@@ -57,6 +57,8 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
         messagesList.setLayoutManager(layoutManager);
 
         messagesRefresh.setOnRefreshListener(() -> presenter.refresh());
+
+        presenter.getDbMessages();
     }
 
     @Override
