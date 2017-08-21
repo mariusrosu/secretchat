@@ -7,12 +7,19 @@
     android:background="@android:color/white"
     tools:context="com.example.marosu.secretchat.conversations.ConversationsActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chat_list_recycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/chat_list_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chat_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:visibility="gone" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/chat_list_loading"

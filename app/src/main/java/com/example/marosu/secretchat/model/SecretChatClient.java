@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Marius-Andrei Rosu on 8/9/2017.
  */
 public class SecretChatClient {
-    private static final String SECRET_CHAT_URL = "https://secrechat.pagekite.me";
+    private static final String SECRET_CHAT_URL = "https://secrechat.pagekite.me/api/";
     private static Retrofit retrofit;
 
     private static Retrofit getClient() {

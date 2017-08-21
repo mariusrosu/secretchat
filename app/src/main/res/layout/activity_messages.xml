@@ -42,11 +42,18 @@
         app:fabSize="mini"
         app:rippleColor="@color/colorPrimary" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/messages_recycler"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/messages_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/message_input"
-        android:paddingBottom="8dp" />
+        android:layout_above="@+id/message_input">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/messages_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="8dp" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

@@ -3,7 +3,7 @@ package com.example.marosu.secretchat.conversations;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -21,7 +21,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.functions.Consumer;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -36,6 +35,9 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
 
     @BindView(R.id.chat_list_error)
     ViewGroup chatListError;
+
+    @BindView(R.id.chat_list_refresh)
+    SwipeRefreshLayout chatListRefresh;
 
     @BindView(R.id.chat_list_recycler)
     RecyclerView chatList;
@@ -57,11 +59,13 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
         super.onCreate(savedInstanceState);
         chatList.setLayoutManager(new LinearLayoutManager(this));
         chatList.setHasFixedSize(true);
+        chatListRefresh.setOnRefreshListener(() -> presenter.getConversations());
         presenter.getConversations();
     }
 
     @Override
     public void onConversationsLoaded(List<Conversation> conversations) {
+        chatListRefresh.setRefreshing(false);
         loadingSpinner.setVisibility(GONE);
         chatListEmpty.setVisibility(GONE);
         chatListError.setVisibility(GONE);
@@ -76,6 +80,7 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
 
     @Override
     public void onConversationsEmpty() {
+        chatListRefresh.setRefreshing(false);
         loadingSpinner.setVisibility(GONE);
         chatListEmpty.setVisibility(VISIBLE);
         chatListError.setVisibility(GONE);
@@ -84,6 +89,7 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
 
     @Override
     public void onConversationsFailed() {
+        chatListRefresh.setRefreshing(false);
         loadingSpinner.setVisibility(GONE);
         chatListEmpty.setVisibility(GONE);
         chatListError.setVisibility(VISIBLE);
@@ -92,19 +98,18 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
 
     private void initConversationsAdapter(List<Conversation> conversations) {
         adapter = new ConversationsAdapter(conversations);
-        adapter.getClickSubject().subscribe(new Consumer<Conversation>() {
-            @Override
-            public void accept(Conversation conversation) throws Exception {
-                final Intent messagesIntent =
-                        new Intent(ConversationsActivity.this, MessagesActivity.class);
-                messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation);
-                startActivity(messagesIntent);
-            }
-        });
+        adapter.getClickSubject().subscribe(conversation -> startMessagesActivity(conversation));
+    }
+
+    private void startMessagesActivity(Conversation conversation) {
+        final Intent messagesIntent = new Intent(ConversationsActivity.this, MessagesActivity.class);
+        messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation);
+        startActivity(messagesIntent);
     }
 
     @OnClick(R.id.try_again)
     void onTryAgainClick() {
+        chatListRefresh.setRefreshing(false);
         loadingSpinner.setVisibility(VISIBLE);
         chatListEmpty.setVisibility(GONE);
         chatListError.setVisibility(GONE);

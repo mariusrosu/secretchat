@@ -2,6 +2,7 @@ package com.example.marosu.secretchat.conversations;
 
 import android.util.Log;
 
+import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
 import com.example.marosu.secretchat.model.SecretChatApi;
 import com.example.marosu.secretchat.model.SecretChatClient;
@@ -29,9 +30,9 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
     }
 
     public void getConversations() {
-       /* api.getAllConversations()*/
-        getData().observeOn(AndroidSchedulers.mainThread())
+        api.getConversations(Session.getSession().getUserId())
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Conversation>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -60,6 +61,8 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
     @Override
     public void onPresenterDestroy() {
         detachView();
+        disposables.clear();
+        api = null;
     }
 
     //TODO: Remove this after the backend is ready.

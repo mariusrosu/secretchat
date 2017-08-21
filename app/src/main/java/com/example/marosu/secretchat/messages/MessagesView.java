@@ -12,5 +12,9 @@ public interface MessagesView extends BaseContract.View {
 
     void onConversationLoaded(Conversation conversation);
 
+    void onConversationFailed();
+
     void onMessageSent(Message message);
+
+    void onMessageFailed();
 }

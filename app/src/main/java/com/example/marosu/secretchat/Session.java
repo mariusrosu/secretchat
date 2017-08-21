@@ -5,7 +5,7 @@ package com.example.marosu.secretchat;
  */
 public class Session {
     private static Session session;
-    private static final String userId = "ff8080815dc1be6b015dc1c3a9bb5423";
+    private static final String userId = "ff8080815dc1be6b015dc1c3a9bb0002";
 
     private Session() {
         //Private constructor
