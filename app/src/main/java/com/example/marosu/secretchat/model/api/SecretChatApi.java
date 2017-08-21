@@ -5,6 +5,7 @@ import com.example.marosu.secretchat.model.entity.Message;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,11 +21,11 @@ public interface SecretChatApi {
     Single<List<Conversation>> getAllConversations();
 
     @GET("conversations")
-    Single<List<Conversation>> getConversations(@Query("userId") String userId);
+    Observable<List<Conversation>> getConversations(@Query("userId") String userId);
 
     @GET("conversations/{conversationId}")
-    Single<Conversation> getConversation(@Path("conversationId") String conversationId);
+    Observable<Conversation> getConversation(@Path("conversationId") String conversationId);
 
     @POST("messages")
-    Single<Message> sendMessage(@Body Message message);
+    Observable<Message> sendMessage(@Body Message message);
 }

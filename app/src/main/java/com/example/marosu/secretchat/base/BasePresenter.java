@@ -20,6 +20,7 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
     @Override
     final public void detachView() {
         view = null;
+        disposables.dispose();
     }
 
     @Override
@@ -40,5 +41,10 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
     @Override
     final public void detachLifecycle(Lifecycle lifecycle) {
         lifecycle.removeObserver(this);
+    }
+
+    @Override
+    public void onPresenterDestroy() {
+        //Implement this to clean up the presenter
     }
 }

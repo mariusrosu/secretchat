@@ -26,11 +26,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         new FakeLoginTask(getView()).execute();
     }
 
-    @Override
-    public void onPresenterDestroy() {
-
-    }
-
     private static class FakeLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final WeakReference<LoginView> viewWeakReference;
 

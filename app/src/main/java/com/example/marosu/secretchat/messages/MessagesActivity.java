@@ -57,8 +57,6 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
         messagesList.setLayoutManager(layoutManager);
 
         messagesRefresh.setOnRefreshListener(() -> presenter.refresh());
-
-        presenter.getDbMessages();
     }
 
     @Override
