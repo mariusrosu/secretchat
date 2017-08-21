@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
-import com.example.marosu.secretchat.model.SecretChatApi;
-import com.example.marosu.secretchat.model.SecretChatClient;
+import com.example.marosu.secretchat.model.api.SecretChatApi;
+import com.example.marosu.secretchat.model.api.SecretChatClient;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

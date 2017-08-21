@@ -1,4 +1,4 @@
-package com.example.marosu.secretchat.model;
+package com.example.marosu.secretchat.model.api;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

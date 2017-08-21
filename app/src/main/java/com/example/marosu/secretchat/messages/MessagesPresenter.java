@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
-import com.example.marosu.secretchat.model.SecretChatApi;
-import com.example.marosu.secretchat.model.SecretChatClient;
+import com.example.marosu.secretchat.model.api.SecretChatApi;
+import com.example.marosu.secretchat.model.api.SecretChatClient;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
 
@@ -64,6 +64,7 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
         final Message message = new Message.Builder()
                 .setConversationId(conversation.getId())
                 .setSenderId(Session.getSession().getUserId())
+                .setTimestamp(System.currentTimeMillis())
                 .setContent(content)
                 .isSending(true)
                 .build();

@@ -1,4 +1,4 @@
-package com.example.marosu.secretchat.model;
+package com.example.marosu.secretchat.model.api;
 
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
