@@ -1,5 +1,6 @@
 package com.example.marosu.secretchat.messages;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -7,12 +8,15 @@ import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
 import com.example.marosu.secretchat.model.api.SecretChatApi;
 import com.example.marosu.secretchat.model.api.SecretChatClient;
+import com.example.marosu.secretchat.model.db.Database;
+import com.example.marosu.secretchat.model.db.SecretChatDatabase;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
 
-import io.reactivex.SingleObserver;
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATION_EXTRA;
@@ -22,10 +26,12 @@ import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATI
  */
 public class MessagesPresenter extends BasePresenter<MessagesView> {
     private SecretChatApi api;
+    private SecretChatDatabase db;
     private Conversation conversation;
 
-    public MessagesPresenter() {
+    public MessagesPresenter(Context context) {
         api = SecretChatClient.createApi();
+        db = Database.getSecretChatDatabase(context);
     }
 
     public void handleExtras(Bundle extras) {
@@ -37,31 +43,31 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
         }
     }
 
-    public void refresh() {
-        api.getConversation(conversation.getId())
+    public void getMessages() {
+        db.messageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Conversation>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+                .subscribe(messages -> Log.d("Debugging", "getDbMessages() -> onSuccess() -> messages.size() = " + messages.size()),
+                        throwable -> Log.d("Debugging", "getDbMessages() -> onError() -> t = " + throwable.getStackTrace()));
+    }
 
-                    }
+    public void refresh() {
+        disposables.add(api.getConversation(conversation.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(conversation -> getView().onConversationLoaded(conversation),
+                        throwable -> getView().onConversationFailed()));
+    }
 
-                    @Override
-                    public void onSuccess(Conversation conversation) {
-                        Log.d("Debugging", "onNext(): value = " + conversation);
-                        getView().onConversationLoaded(conversation);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        getView().onConversationFailed();
-                    }
-                });
+    private void saveMessages(List<Message> messages) {
+        Observable.fromCallable(() -> db.messageDao().insertAll(messages))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     public void sendMessage(String content) {
-        final Message message = new Message.Builder()
+        final Message newMessage = new Message.Builder()
                 .setConversationId(conversation.getId())
                 .setSenderId(Session.getSession().getUserId())
                 .setTimestamp(System.currentTimeMillis())
@@ -69,32 +75,10 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
                 .isSending(true)
                 .build();
 
-        api.sendMessage(message)
+        api.sendMessage(newMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Message>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d("Debugging", "onSubscribe(): d = " + d);
-                        disposables.add(d);
-                    }
-
-                    @Override
-                    public void onSuccess(Message message) {
-                        Log.d("Debugging", "onNext(): value = " + message);
-                        getView().onMessageSent(message);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("Debugging", "onError(): e = " + e);
-                        getView().onMessageFailed();
-                    }
-                });
-    }
-
-    @Override
-    public void onPresenterDestroy() {
-
+                .subscribe(sentMessage -> getView().onMessageSent(sentMessage),
+                        throwable -> getView().onMessageFailed());
     }
 }

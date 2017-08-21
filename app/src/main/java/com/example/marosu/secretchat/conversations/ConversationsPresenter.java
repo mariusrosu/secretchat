@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -33,36 +31,17 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
         api.getConversations(Session.getSession().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<Conversation>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        Log.d("Debugging", "onSubscribe(): d = " + d);
-                        disposables.add(d);
+                .subscribe(conversations -> {
+                    Log.d("Debugging", "onSuccess(): value = " + conversations);
+                    if (conversations == null || conversations.isEmpty()) {
+                        getView().onConversationsEmpty();
+                    } else {
+                        getView().onConversationsLoaded(conversations);
                     }
-
-                    @Override
-                    public void onSuccess(List<Conversation> conversations) {
-                        Log.d("Debugging", "onNext(): value = " + conversations);
-                        if (conversations == null || conversations.isEmpty()) {
-                            getView().onConversationsEmpty();
-                        } else {
-                            getView().onConversationsLoaded(conversations);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("Debugging", "onError(): e = " + e);
-                        getView().onConversationsFailed();
-                    }
+                }, throwable -> {
+                    Log.d("Debugging", "onError(): e = " + throwable);
+                    getView().onConversationsFailed();
                 });
-    }
-
-    @Override
-    public void onPresenterDestroy() {
-        detachView();
-        disposables.clear();
-        api = null;
     }
 
     //TODO: Remove this after the backend is ready.

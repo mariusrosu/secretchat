@@ -38,7 +38,7 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
 
     @Override
     protected MessagesPresenter initPresenter() {
-        return new MessagesPresenter();
+        return new MessagesPresenter(getApplicationContext());
     }
 
     @Override

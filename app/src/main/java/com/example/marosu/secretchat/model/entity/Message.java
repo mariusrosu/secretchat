@@ -1,5 +1,8 @@
 package com.example.marosu.secretchat.model.entity;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,19 +11,30 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
+@Entity(tableName = "message")
 public class Message implements Parcelable {
+    @PrimaryKey
     private String id;
 
+    @ColumnInfo(name = "conversation_id")
     private String conversationId;
 
+    @ColumnInfo(name = "content")
     private String content;
 
+    @ColumnInfo(name = "sender_id")
     private String senderId;
 
+    @ColumnInfo(name = "sending")
     private boolean sending;
 
+    @ColumnInfo(name = "timestamp")
     @SerializedName("createdDtm")
     private long timestamp;
+
+    public Message() {
+        //Public constructor needed for Room persistency
+    }
 
     private Message(String content, String conversationId, String senderId, boolean sending) {
         this.content = content;
@@ -33,24 +47,48 @@ public class Message implements Parcelable {
         return id;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public String getSenderId() {
-        return senderId;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getConversationId() {
         return conversationId;
     }
 
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
     public boolean isSending() {
         return sending;
+    }
+
+    public void setSending(boolean sending) {
+        this.sending = sending;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public static class Builder {
