@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Marius-Andrei Rosu on 8/10/2017.
  */
-public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
+public final class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
     private static final int INCOMING_VIEW_TYPE = 0;
     private static final int OUTGOING_VIEW_TYPE = 1;
     private static final SimpleDateFormat MESSAGE_DATE_FORMAT = new SimpleDateFormat("hh:mm a");

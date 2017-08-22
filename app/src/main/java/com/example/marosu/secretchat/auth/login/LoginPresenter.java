@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class LoginPresenter extends BasePresenter<LoginView> {
+public final class LoginPresenter extends BasePresenter<LoginView> {
 
     public void login(String username, String password) {
         if (!Util.isEmailValid(username)) {

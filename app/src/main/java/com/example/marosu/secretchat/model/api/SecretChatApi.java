@@ -1,5 +1,6 @@
 package com.example.marosu.secretchat.model.api;
 
+import com.example.marosu.secretchat.model.body.ConversationBody;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
 import com.example.marosu.secretchat.model.entity.User;
@@ -26,6 +27,9 @@ public interface SecretChatApi {
 
     @GET("conversations/{conversationId}")
     Observable<Conversation> getConversation(@Path("conversationId") String conversationId);
+
+    @POST("conversations")
+    Observable<Conversation> createConversation(@Body ConversationBody body);
 
     @POST("messages")
     Observable<Message> sendMessage(@Body Message message);

@@ -22,6 +22,9 @@
     <string name="say_something">Say something...</string>
     <string name="search_here">Type here to search...</string>
     <string name="sign_up">New here? <b>Sign Up!</b></string>
+
     <string name="conversation_refresh_fail">Failed to refresh conversation</string>
+    <string name="conversation_create_fail">Failed to create the conversation</string>
     <string name="message_send_fail">Failed to send message</string>
+    <string name="search_fail">Failed to search users</string>
 </resources>

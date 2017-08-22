@@ -18,7 +18,7 @@ import io.reactivex.Single;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class ConversationsPresenter extends BasePresenter<ConversationsView> {
+public final class ConversationsPresenter extends BasePresenter<ConversationsView> {
     private SecretChatApi api;
 
     public ConversationsPresenter() {
@@ -28,17 +28,23 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
     public void getConversations() {
         disposables.add(api.getConversations(Session.getSession().getUserId())
                 .compose(applySchedulers())
-                .subscribe(conversations -> {
-                    Log.d("Debugging", "onSuccess(): value = " + conversations);
-                    if (conversations == null || conversations.isEmpty()) {
-                        getView().onConversationsEmpty();
-                    } else {
-                        getView().onConversationsLoaded(conversations);
-                    }
-                }, throwable -> {
-                    Log.d("Debugging", "onError(): e = " + throwable);
-                    getView().onConversationsFailed();
-                }));
+                .subscribe(
+                        conversations -> handleConversations(conversations),
+                        throwable -> handleConversationError(throwable)));
+    }
+
+    private void handleConversations(List<Conversation> conversations) {
+        Log.d("Debugging", "onSuccess(): value = " + conversations);
+        if (conversations == null || conversations.isEmpty()) {
+            getView().onConversationsEmpty();
+        } else {
+            getView().onConversationsLoaded(conversations);
+        }
+    }
+
+    private void handleConversationError(Throwable throwable) {
+        Log.e("Debugging", "onError(): throwable = " + throwable.getMessage());
+        getView().onConversationsFailed();
     }
 
     //TODO: Remove this after the backend is ready.

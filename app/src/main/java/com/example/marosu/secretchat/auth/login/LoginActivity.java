@@ -19,7 +19,7 @@ import butterknife.OnTextChanged;
 
 import static com.example.marosu.secretchat.util.Util.PASSWORD_MIN_LENGTH;
 
-public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView {
+public final class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView {
     @BindView(R.id.login_logo)
     ImageView loginImage;
 

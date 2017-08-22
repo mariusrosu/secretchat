@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresenter> implements MessagesView {
+public final class MessagesActivity extends BaseActivity<MessagesView, MessagesPresenter> implements MessagesView {
     public static final String CONVERSATION_EXTRA = "conversation_extra";
 
     @BindView(R.id.messages_refresh)
@@ -122,5 +122,4 @@ public class MessagesActivity extends BaseActivity<MessagesView, MessagesPresent
         presenter.sendMessage(messageInput.getText().toString());
         messageInput.setText("");
     }
-
 }

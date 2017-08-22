@@ -25,7 +25,7 @@ import butterknife.OnClick;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class ConversationsActivity extends BaseActivity<ConversationsView, ConversationsPresenter>
+public final class ConversationsActivity extends BaseActivity<ConversationsView, ConversationsPresenter>
         implements ConversationsView {
     @BindView(R.id.chat_list_loading)
     ProgressBar loadingSpinner;
@@ -102,7 +102,7 @@ public class ConversationsActivity extends BaseActivity<ConversationsView, Conve
     }
 
     private void startMessagesActivity(Conversation conversation) {
-        final Intent messagesIntent = new Intent(ConversationsActivity.this, MessagesActivity.class);
+        final Intent messagesIntent = new Intent(this, MessagesActivity.class);
         messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation);
         startActivity(messagesIntent);
     }

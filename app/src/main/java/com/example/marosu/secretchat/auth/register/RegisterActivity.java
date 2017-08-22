@@ -3,7 +3,7 @@ package com.example.marosu.secretchat.auth.register;
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
 
-public class RegisterActivity extends BaseActivity<RegisterView, RegisterPresenter> {
+public final class RegisterActivity extends BaseActivity<RegisterView, RegisterPresenter> {
 
     @Override
     protected RegisterPresenter initPresenter() {

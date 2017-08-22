@@ -14,12 +14,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by Marius-Andrei Rosu on 8/22/2017.
  */
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+public final class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private List<User> users;
+    private PublishSubject<User> clickSubject = PublishSubject.create();
 
     public SearchAdapter(List<User> users) {
         this.users = users;
@@ -35,7 +37,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final User user = users.get(position);
-
+        holder.searchItem.setOnClickListener(view -> clickSubject.onNext(user));
         holder.searchAvatar.setUser(user);
         holder.searchName.setText(user.getFullName());
         holder.searchEmail.setText(user.getEmail());
@@ -49,6 +51,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void updateUsers(List<User> users) {
         this.users = users;
         notifyDataSetChanged();
+    }
+
+    public PublishSubject<User> getClickSubject() {
+        return clickSubject;
     }
 
     protected static final class ViewHolder extends RecyclerView.ViewHolder {

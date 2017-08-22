@@ -24,7 +24,7 @@ import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATI
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class MessagesPresenter extends BasePresenter<MessagesView> {
+public final class MessagesPresenter extends BasePresenter<MessagesView> {
     private SecretChatApi api;
     private SecretChatDatabase db;
     private Conversation conversation;
@@ -47,14 +47,16 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
         disposables.add(db.messageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(messages -> Log.d("Debugging", "getDbMessages() -> onSuccess() -> messages.size() = " + messages.size()),
+                .subscribe(
+                        messages -> Log.d("Debugging", "getDbMessages() -> onSuccess() -> messages.size() = " + messages.size()),
                         throwable -> Log.d("Debugging", "getDbMessages() -> onError() -> t = " + throwable.getStackTrace())));
     }
 
     public void refresh() {
         disposables.add(api.getConversation(conversation.getId())
                 .compose(applySchedulers())
-                .subscribe(conversation -> getView().onConversationLoaded(conversation),
+                .subscribe(
+                        conversation -> getView().onConversationLoaded(conversation),
                         throwable -> getView().onConversationFailed()));
     }
 
@@ -75,7 +77,8 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
 
         disposables.add(api.sendMessage(newMessage)
                 .compose(applySchedulers())
-                .subscribe(sentMessage -> getView().onMessageSent(sentMessage),
+                .subscribe(
+                        sentMessage -> getView().onMessageSent(sentMessage),
                         throwable -> getView().onMessageFailed()));
     }
 }

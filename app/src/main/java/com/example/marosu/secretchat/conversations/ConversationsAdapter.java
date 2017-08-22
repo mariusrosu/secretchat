@@ -23,7 +23,7 @@ import static com.example.marosu.secretchat.util.Util.getRelativeTime;
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
-public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
+public final class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
     private List<Conversation> conversations;
     private PublishSubject<Conversation> clickSubject = PublishSubject.create();
 
@@ -41,20 +41,17 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conversation conversation = conversations.get(position);
-        holder.item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickSubject.onNext(conversation);
-            }
-        });
+        holder.item.setOnClickListener(view -> clickSubject.onNext(conversation));
 
         final User participant = conversation.getParticipants().get(0);
         holder.avatar.setUser(participant);
         holder.title.setText(participant.getFullName());
 
-        final Message lastMessage = conversation.getMessages().get(0);
-        holder.preview.setText(lastMessage.getContent());
-        holder.date.setText(getRelativeTime(lastMessage.getTimestamp()));
+        if (conversation.getMessages() != null && conversation.getMessages().size() > 0) {
+            final Message lastMessage = conversation.getMessages().get(0);
+            holder.preview.setText(lastMessage.getContent());
+            holder.date.setText(getRelativeTime(lastMessage.getTimestamp()));
+        }
     }
 
     @Override
