@@ -2,6 +2,7 @@ package com.example.marosu.secretchat.model.api;
 
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.entity.User;
 
 import java.util.List;
 
@@ -28,4 +29,7 @@ public interface SecretChatApi {
 
     @POST("messages")
     Observable<Message> sendMessage(@Body Message message);
+
+    @GET("users/search")
+    Observable<List<User>> searchUsers(@Query("searchQuery") String searchQuery);
 }

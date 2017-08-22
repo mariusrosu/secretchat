@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
+
+    <com.example.marosu.secretchat.util.AvatarView
+        android:id="@+id/search_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:titleSize="24sp" />
+
+    <TextView
+        android:id="@+id/search_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/search_avatar"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:text="Marius-Andrei Rosu" />
+
+    <TextView
+        android:id="@+id/search_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_name"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/search_avatar"
+        tools:text="marius.andrei.xd@gmail.com" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@id/search_name"
+        android:layout_below="@id/search_avatar"
+        android:layout_marginTop="8dp"
+        android:background="@color/divider_color" />
+
+</RelativeLayout>
