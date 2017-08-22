@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.subjects.PublishSubject;
 
+import static android.view.View.GONE;
 import static com.example.marosu.secretchat.util.Util.getRelativeTime;
 
 /**
@@ -50,10 +51,12 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
         if (conversation.getMessages() != null && conversation.getMessages().size() > 0) {
             final Message lastMessage = conversation.getMessages().get(0);
             holder.preview.setText(lastMessage.getContent());
+            holder.preview.setVisibility(View.VISIBLE);
             holder.date.setText(getRelativeTime(lastMessage.getTimestamp()));
+            holder.date.setVisibility(View.VISIBLE);
         } else {
-            holder.preview.setVisibility(View.GONE);
-            holder.date.setVisibility(View.GONE);
+            holder.preview.setVisibility(GONE);
+            holder.date.setVisibility(GONE);
         }
     }
 

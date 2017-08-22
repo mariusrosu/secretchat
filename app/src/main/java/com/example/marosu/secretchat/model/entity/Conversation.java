@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +15,20 @@ import java.util.List;
 @Entity
 public class Conversation implements Parcelable {
     private String id;
+
+    @SerializedName("createdDtm")
+    private long timestamp;
+
     private List<Message> messages;
+
     private List<User> participants;
 
     public String getId() {
         return id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 
     public List<Message> getMessages() {
@@ -30,14 +41,15 @@ public class Conversation implements Parcelable {
 
     protected Conversation(Parcel in) {
         id = in.readString();
+        timestamp = in.readLong();
         if (in.readByte() == 0x01) {
-            messages = new ArrayList<>();
+            messages = new ArrayList<Message>();
             in.readList(messages, Message.class.getClassLoader());
         } else {
             messages = null;
         }
         if (in.readByte() == 0x01) {
-            participants = new ArrayList<>();
+            participants = new ArrayList<User>();
             in.readList(participants, User.class.getClassLoader());
         } else {
             participants = null;
@@ -52,6 +64,7 @@ public class Conversation implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
+        dest.writeLong(timestamp);
         if (messages == null) {
             dest.writeByte((byte) (0x00));
         } else {
