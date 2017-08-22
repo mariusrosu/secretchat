@@ -3,7 +3,10 @@ package com.example.marosu.secretchat.base;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
@@ -46,5 +49,11 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
     @Override
     public void onPresenterDestroy() {
         //Implement this to clean up the presenter
+    }
+
+    protected <T> ObservableTransformer<T, T> applySchedulers() {
+        return observable -> observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

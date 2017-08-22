@@ -44,26 +44,24 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     public void getMessages() {
-        db.messageDao().getAll()
+        disposables.add(db.messageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messages -> Log.d("Debugging", "getDbMessages() -> onSuccess() -> messages.size() = " + messages.size()),
-                        throwable -> Log.d("Debugging", "getDbMessages() -> onError() -> t = " + throwable.getStackTrace()));
+                        throwable -> Log.d("Debugging", "getDbMessages() -> onError() -> t = " + throwable.getStackTrace())));
     }
 
     public void refresh() {
         disposables.add(api.getConversation(conversation.getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(applySchedulers())
                 .subscribe(conversation -> getView().onConversationLoaded(conversation),
                         throwable -> getView().onConversationFailed()));
     }
 
     private void saveMessages(List<Message> messages) {
-        Observable.fromCallable(() -> db.messageDao().insertAll(messages))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+        disposables.add(Observable.fromCallable(() -> db.messageDao().insertAll(messages))
+                .compose(applySchedulers())
+                .subscribe());
     }
 
     public void sendMessage(String content) {
@@ -75,10 +73,9 @@ public class MessagesPresenter extends BasePresenter<MessagesView> {
                 .isSending(true)
                 .build();
 
-        api.sendMessage(newMessage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        disposables.add(api.sendMessage(newMessage)
+                .compose(applySchedulers())
                 .subscribe(sentMessage -> getView().onMessageSent(sentMessage),
-                        throwable -> getView().onMessageFailed());
+                        throwable -> getView().onMessageFailed()));
     }
 }

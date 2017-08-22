@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
@@ -28,9 +26,8 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
     }
 
     public void getConversations() {
-        api.getConversations(Session.getSession().getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        disposables.add(api.getConversations(Session.getSession().getUserId())
+                .compose(applySchedulers())
                 .subscribe(conversations -> {
                     Log.d("Debugging", "onSuccess(): value = " + conversations);
                     if (conversations == null || conversations.isEmpty()) {
@@ -41,7 +38,7 @@ public class ConversationsPresenter extends BasePresenter<ConversationsView> {
                 }, throwable -> {
                     Log.d("Debugging", "onError(): e = " + throwable);
                     getView().onConversationsFailed();
-                });
+                }));
     }
 
     //TODO: Remove this after the backend is ready.
