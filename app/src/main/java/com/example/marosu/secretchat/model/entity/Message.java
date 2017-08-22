@@ -6,6 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.marosu.secretchat.model.body.MessageBody;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -120,6 +121,13 @@ public class Message implements Parcelable {
 
         public Builder isSending(boolean sending) {
             this.sending = sending;
+            return this;
+        }
+
+        public Builder setBody(MessageBody body) {
+            this.conversationId = body.getConversationId();
+            this.senderId = body.getSenderId();
+            this.content = body.getContent();
             return this;
         }
 

@@ -51,6 +51,9 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
             final Message lastMessage = conversation.getMessages().get(0);
             holder.preview.setText(lastMessage.getContent());
             holder.date.setText(getRelativeTime(lastMessage.getTimestamp()));
+        } else {
+            holder.preview.setVisibility(View.GONE);
+            holder.date.setVisibility(View.GONE);
         }
     }
 

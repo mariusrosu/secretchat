@@ -8,6 +8,7 @@ import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
 import com.example.marosu.secretchat.model.api.SecretChatApi;
 import com.example.marosu.secretchat.model.api.SecretChatClient;
+import com.example.marosu.secretchat.model.body.MessageBody;
 import com.example.marosu.secretchat.model.db.Database;
 import com.example.marosu.secretchat.model.db.SecretChatDatabase;
 import com.example.marosu.secretchat.model.entity.Conversation;
@@ -67,15 +68,16 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     public void sendMessage(String content) {
+        final MessageBody body
+                = new MessageBody(conversation.getId(), Session.getSession().getUserId(), content);
+
         final Message newMessage = new Message.Builder()
-                .setConversationId(conversation.getId())
-                .setSenderId(Session.getSession().getUserId())
                 .setTimestamp(System.currentTimeMillis())
-                .setContent(content)
                 .isSending(true)
+                .setBody(body)
                 .build();
 
-        disposables.add(api.sendMessage(newMessage)
+        disposables.add(api.sendMessage(body)
                 .compose(applySchedulers())
                 .subscribe(
                         sentMessage -> getView().onMessageSent(sentMessage),
