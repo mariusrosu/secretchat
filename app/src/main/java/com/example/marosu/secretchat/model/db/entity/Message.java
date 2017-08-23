@@ -4,7 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.marosu.secretchat.model.body.MessageBody;
+import com.example.marosu.secretchat.model.api.body.MessageBody;
 import com.google.gson.annotations.SerializedName;
 
 /**

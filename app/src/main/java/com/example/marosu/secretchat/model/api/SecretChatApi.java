@@ -1,8 +1,9 @@
 package com.example.marosu.secretchat.model.api;
 
-import com.example.marosu.secretchat.model.body.ConversationBody;
+import com.example.marosu.secretchat.model.api.body.ConversationBody;
+import com.example.marosu.secretchat.model.api.body.MessageBody;
+import com.example.marosu.secretchat.model.api.response.ConversationResponse;
 import com.example.marosu.secretchat.model.body.LoginBody;
-import com.example.marosu.secretchat.model.body.MessageBody;
 import com.example.marosu.secretchat.model.db.entity.Conversation;
 import com.example.marosu.secretchat.model.db.entity.Message;
 import com.example.marosu.secretchat.model.db.entity.User;
@@ -25,7 +26,7 @@ public interface SecretChatApi {
     Single<List<Conversation>> getAllConversations();
 
     @GET("conversations")
-    Observable<List<Conversation>> getConversations(@Query("userId") String userId);
+    Observable<List<ConversationResponse>> getConversations(@Query("userId") String userId);
 
     @GET("conversations/{conversationId}")
     Observable<Conversation> getConversation(@Path("conversationId") String conversationId);

@@ -8,7 +8,7 @@ import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
 import com.example.marosu.secretchat.model.api.SecretChatApi;
 import com.example.marosu.secretchat.model.api.SecretChatClient;
-import com.example.marosu.secretchat.model.body.MessageBody;
+import com.example.marosu.secretchat.model.api.body.MessageBody;
 import com.example.marosu.secretchat.model.db.Database;
 import com.example.marosu.secretchat.model.db.SecretChatDatabase;
 import com.example.marosu.secretchat.model.db.entity.Conversation;

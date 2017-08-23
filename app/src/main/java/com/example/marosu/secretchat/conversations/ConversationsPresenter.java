@@ -7,6 +7,7 @@ import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
 import com.example.marosu.secretchat.model.api.SecretChatApi;
 import com.example.marosu.secretchat.model.api.SecretChatClient;
+import com.example.marosu.secretchat.model.api.response.ConversationResponse;
 import com.example.marosu.secretchat.model.db.Database;
 import com.example.marosu.secretchat.model.db.SecretChatDatabase;
 import com.example.marosu.secretchat.model.db.entity.Conversation;
@@ -40,6 +41,7 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
 
     public void getConversations() {
         disposables.add(api.getConversations(Session.getSession().getUserId())
+                .doOnNext(response -> storeConverations(response))
                 .map(conversations -> mapConversations(conversations))
                 .compose(applySchedulers())
                 .doOnError(throwable -> handleConversationError(throwable))
@@ -66,6 +68,11 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
         }
         Collections.sort(conversations, conversationComparator);
         return conversations;
+    }
+
+    private void storeConverations(List<ConversationResponse> conversationResponses) {
+        for (ConversationResponse response : conversationResponses) {
+        }
     }
 
     private void saveConversations(List<Conversation> conversations) {
