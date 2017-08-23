@@ -1,7 +1,7 @@
 package com.example.marosu.secretchat.util.comparator;
 
 import com.example.marosu.secretchat.Session;
-import com.example.marosu.secretchat.model.entity.User;
+import com.example.marosu.secretchat.model.db.entity.User;
 
 import java.util.Comparator;
 

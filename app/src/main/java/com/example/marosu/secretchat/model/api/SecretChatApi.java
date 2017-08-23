@@ -3,9 +3,9 @@ package com.example.marosu.secretchat.model.api;
 import com.example.marosu.secretchat.model.body.ConversationBody;
 import com.example.marosu.secretchat.model.body.LoginBody;
 import com.example.marosu.secretchat.model.body.MessageBody;
-import com.example.marosu.secretchat.model.entity.Conversation;
-import com.example.marosu.secretchat.model.entity.Message;
-import com.example.marosu.secretchat.model.entity.User;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.User;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.Session;
-import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.Message;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

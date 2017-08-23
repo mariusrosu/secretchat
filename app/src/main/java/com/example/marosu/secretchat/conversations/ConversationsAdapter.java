@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.model.entity.Conversation;
-import com.example.marosu.secretchat.model.entity.Message;
-import com.example.marosu.secretchat.model.entity.User;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.User;
 import com.example.marosu.secretchat.util.AvatarView;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import static com.example.marosu.secretchat.util.Util.getRelativeTime;
  */
 public final class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
     private List<Conversation> conversations;
-    private PublishSubject<Conversation> clickSubject = PublishSubject.create();
+    private PublishSubject<String> clickSubject = PublishSubject.create();
 
     public ConversationsAdapter(List<Conversation> conversations) {
         this.conversations = conversations;
@@ -42,7 +42,7 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Conversation conversation = conversations.get(position);
-        holder.item.setOnClickListener(view -> clickSubject.onNext(conversation));
+        holder.item.setOnClickListener(view -> clickSubject.onNext(conversation.getId()));
 
         final User participant = conversation.getParticipants().get(0);
         holder.avatar.setUser(participant);
@@ -70,7 +70,7 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
         notifyDataSetChanged();
     }
 
-    public PublishSubject<Conversation> getClickSubject() {
+    public PublishSubject<String> getClickSubject() {
         return clickSubject;
     }
 

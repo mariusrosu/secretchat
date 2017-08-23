@@ -11,8 +11,8 @@ import com.example.marosu.secretchat.model.api.SecretChatClient;
 import com.example.marosu.secretchat.model.body.MessageBody;
 import com.example.marosu.secretchat.model.db.Database;
 import com.example.marosu.secretchat.model.db.SecretChatDatabase;
-import com.example.marosu.secretchat.model.entity.Conversation;
-import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Message;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATION_EXTRA;
+import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATION_ID_EXTRA;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
@@ -37,8 +38,7 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
 
     public void handleExtras(Bundle extras) {
         if (extras != null) {
-            final Conversation conversation = extras.getParcelable(CONVERSATION_EXTRA);
-            this.conversation = conversation;
+            final String conversationId = extras.getParcelable(CONVERSATION_ID_EXTRA);
             getView().onConversationLoaded(conversation);
             getView().setConversationTitle(conversation.getParticipants().get(0).getFullName());
         }

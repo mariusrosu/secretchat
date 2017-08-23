@@ -12,15 +12,15 @@ import android.widget.Toast;
 
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
-import com.example.marosu.secretchat.model.entity.Conversation;
-import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Message;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public final class MessagesActivity extends BaseActivity<MessagesView, MessagesPresenter> implements MessagesView {
-    public static final String CONVERSATION_EXTRA = "conversation_extra";
+    public static final String CONVERSATION_ID_EXTRA = "conversation_id_extra";
 
     @BindView(R.id.messages_refresh)
     SwipeRefreshLayout messagesRefresh;

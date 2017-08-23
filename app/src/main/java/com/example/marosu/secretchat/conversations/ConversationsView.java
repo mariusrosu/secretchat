@@ -1,7 +1,7 @@
 package com.example.marosu.secretchat.conversations;
 
 import com.example.marosu.secretchat.base.BaseContract;
-import com.example.marosu.secretchat.model.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.example.marosu.secretchat.util.comparator;
 
-import com.example.marosu.secretchat.model.entity.Conversation;
-import com.example.marosu.secretchat.model.entity.Message;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Message;
 
 import java.util.Comparator;
 

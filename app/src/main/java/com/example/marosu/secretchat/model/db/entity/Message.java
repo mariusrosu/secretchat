@@ -1,10 +1,8 @@
-package com.example.marosu.secretchat.model.entity;
+package com.example.marosu.secretchat.model.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.example.marosu.secretchat.model.body.MessageBody;
 import com.google.gson.annotations.SerializedName;
@@ -13,19 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 @Entity(tableName = "message")
-public class Message implements Parcelable {
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
-        @Override
-        public Message createFromParcel(Parcel in) {
-            return new Message(in);
-        }
-
-        @Override
-        public Message[] newArray(int size) {
-            return new Message[size];
-        }
-    };
+public class Message {
     @PrimaryKey
     private String id;
     @ColumnInfo(name = "conversation_id")
@@ -49,15 +35,6 @@ public class Message implements Parcelable {
         this.conversationId = conversationId;
         this.senderId = senderId;
         this.sending = sending;
-    }
-
-    protected Message(Parcel in) {
-        id = in.readString();
-        conversationId = in.readString();
-        content = in.readString();
-        senderId = in.readString();
-        sending = in.readByte() != 0x00;
-        timestamp = in.readLong();
     }
 
     public String getId() {
@@ -106,21 +83,6 @@ public class Message implements Parcelable {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(conversationId);
-        dest.writeString(content);
-        dest.writeString(senderId);
-        dest.writeByte((byte) (sending ? 0x01 : 0x00));
-        dest.writeLong(timestamp);
     }
 
     public static class Builder {

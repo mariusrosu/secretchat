@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
 import com.example.marosu.secretchat.messages.MessagesActivity;
-import com.example.marosu.secretchat.model.entity.Conversation;
+import com.example.marosu.secretchat.model.db.entity.Conversation;
 import com.example.marosu.secretchat.search.SearchActivity;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
 
     @Override
     protected ConversationsPresenter initPresenter() {
-        return new ConversationsPresenter();
+        return new ConversationsPresenter(getApplicationContext());
     }
 
     @Override
@@ -96,12 +96,12 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
 
     private void initConversationsAdapter(List<Conversation> conversations) {
         adapter = new ConversationsAdapter(conversations);
-        adapter.getClickSubject().subscribe(conversation -> startMessagesActivity(conversation));
+        adapter.getClickSubject().subscribe(conversationId -> startMessagesActivity(conversationId));
     }
 
-    private void startMessagesActivity(Conversation conversation) {
+    private void startMessagesActivity(String conversationId) {
         final Intent messagesIntent = new Intent(this, MessagesActivity.class);
-        messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation);
+        messagesIntent.putExtra(MessagesActivity.CONVERSATION_ID_EXTRA, conversationId);
         startActivity(messagesIntent);
     }
 

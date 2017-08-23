@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.model.entity.User;
+import com.example.marosu.secretchat.model.db.entity.User;
 
 /**
  * Created by Marius-Andrei Rosu on 8/8/2017.
