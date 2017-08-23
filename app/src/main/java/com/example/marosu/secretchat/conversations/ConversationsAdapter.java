@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.model.db.entity.Conversation;
 import com.example.marosu.secretchat.model.db.entity.Message;
 import com.example.marosu.secretchat.model.db.entity.User;
+import com.example.marosu.secretchat.model.pojo.FullConversation;
 import com.example.marosu.secretchat.util.AvatarView;
 
 import java.util.List;
@@ -25,10 +25,10 @@ import static com.example.marosu.secretchat.util.Util.getRelativeTime;
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public final class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdapter.ViewHolder> {
-    private List<Conversation> conversations;
+    private List<FullConversation> conversations;
     private PublishSubject<String> clickSubject = PublishSubject.create();
 
-    public ConversationsAdapter(List<Conversation> conversations) {
+    public ConversationsAdapter(List<FullConversation> conversations) {
         this.conversations = conversations;
     }
 
@@ -41,7 +41,7 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Conversation conversation = conversations.get(position);
+        final FullConversation conversation = conversations.get(position);
         holder.item.setOnClickListener(view -> clickSubject.onNext(conversation.getId()));
 
         final User participant = conversation.getParticipants().get(0);
@@ -65,7 +65,7 @@ public final class ConversationsAdapter extends RecyclerView.Adapter<Conversatio
         return conversations.size();
     }
 
-    public void updateConversations(List<Conversation> conversations) {
+    public void updateConversations(List<FullConversation> conversations) {
         this.conversations = conversations;
         notifyDataSetChanged();
     }

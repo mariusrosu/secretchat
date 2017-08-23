@@ -13,6 +13,7 @@ import com.example.marosu.secretchat.R;
 import com.example.marosu.secretchat.base.BaseActivity;
 import com.example.marosu.secretchat.messages.MessagesActivity;
 import com.example.marosu.secretchat.model.db.entity.Conversation;
+import com.example.marosu.secretchat.model.pojo.FullConversation;
 import com.example.marosu.secretchat.search.SearchActivity;
 
 import java.util.List;
@@ -62,7 +63,7 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
     }
 
     @Override
-    public void onConversationsLoaded(List<Conversation> conversations) {
+    public void onConversationsLoaded(List<FullConversation> conversations) {
         chatListRefresh.setRefreshing(false);
         loadingSpinner.setVisibility(GONE);
         chatListEmpty.setVisibility(GONE);
@@ -94,7 +95,7 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
         chatList.setVisibility(GONE);
     }
 
-    private void initConversationsAdapter(List<Conversation> conversations) {
+    private void initConversationsAdapter(List<FullConversation> conversations) {
         adapter = new ConversationsAdapter(conversations);
         adapter.getClickSubject().subscribe(conversationId -> startMessagesActivity(conversationId));
     }

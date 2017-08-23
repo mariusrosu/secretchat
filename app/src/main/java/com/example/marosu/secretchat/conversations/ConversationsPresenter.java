@@ -14,10 +14,11 @@ import com.example.marosu.secretchat.model.db.entity.Conversation;
 import com.example.marosu.secretchat.model.db.entity.Message;
 import com.example.marosu.secretchat.model.db.entity.Participant;
 import com.example.marosu.secretchat.model.db.entity.User;
+import com.example.marosu.secretchat.model.pojo.FullConversation;
 import com.example.marosu.secretchat.util.comparator.ConversationComparator;
 import com.example.marosu.secretchat.util.comparator.UserComparator;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,14 +42,14 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
 
     public void getConversations() {
         disposables.add(api.getConversations(Session.getSession().getUserId())
-                .doOnNext(response -> storeConverations(response))
-                .map(conversations -> mapConversations(conversations))
+                .map(response -> mapAndStoreConverations(response))
+                //.map(conversations -> mapConversations(conversations))
                 .compose(applySchedulers())
                 .doOnError(throwable -> handleConversationError(throwable))
                 .subscribe(conversations -> handleConversations(conversations)));
     }
 
-    private void handleConversations(List<Conversation> conversations) {
+    private void handleConversations(List<FullConversation> conversations) {
         Log.d("Debugging", "onSuccess(): value = " + conversations);
         if (conversations == null || conversations.isEmpty()) {
             getView().onConversationsEmpty();
@@ -62,17 +63,28 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
         getView().onConversationsFailed();
     }
 
-    private List<Conversation> mapConversations(List<Conversation> conversations) {
+    /*private List<Conversation> mapConversations(List<Conversation> conversations) {
         for (Conversation conversation : conversations) {
             Collections.sort(conversation.getParticipants(), userComparator);
         }
         Collections.sort(conversations, conversationComparator);
         return conversations;
-    }
+    }*/
 
-    private void storeConverations(List<ConversationResponse> conversationResponses) {
-        for (ConversationResponse response : conversationResponses) {
+    private List<FullConversation> mapAndStoreConverations(List<ConversationResponse> conversationsResponse) {
+        final List<Conversation> conversations = new ArrayList<>();
+        final List<FullConversation> fullConversations = new ArrayList<>();
+        for (ConversationResponse response : conversationsResponse) {
+            disposables.add(Observable.fromCallable(()-> {
+                db.messageDao().insertAll(response.getMessages());
+                db.userDao().insertAll(response.getUsers());
+                conversations.add(new Conversation(response.getId(), response.getTimestamp()));
+                fullConversations.add(new FullConversation(response));
+            }));
+
         }
+        db.conversationDao().insertAll(conversations);
+        return fullConversations;
     }
 
     private void saveConversations(List<Conversation> conversations) {

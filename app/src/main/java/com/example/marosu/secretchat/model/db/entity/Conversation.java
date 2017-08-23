@@ -18,6 +18,11 @@ public class Conversation {
     @SerializedName("createdDtm")
     private long timestamp;
 
+    public Conversation(String id, long timestamp) {
+        this.id = id;
+        this.timestamp = timestamp;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
