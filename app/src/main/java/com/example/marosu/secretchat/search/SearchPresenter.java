@@ -24,9 +24,8 @@ public final class SearchPresenter extends BasePresenter<SearchView> {
         disposables.add(api.searchUsers(input.toString())
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .compose(applySchedulers())
-                .subscribe(
-                        users -> getView().onUsersLoaded(users),
-                        throwable -> getView().onUsersFailed(throwable)));
+                .doOnError(throwable -> getView().onUsersFailed(throwable))
+                .subscribe(users -> getView().onUsersLoaded(users)));
     }
 
     public void createConversation(User user) {
@@ -35,8 +34,7 @@ public final class SearchPresenter extends BasePresenter<SearchView> {
 
         disposables.add(api.createConversation(conversationBody)
                 .compose(applySchedulers())
-                .subscribe(
-                        conversation -> getView().onConversationCreated(conversation),
-                        throwable -> getView().onConversationFailed(throwable)));
+                .doOnError(throwable -> getView().onConversationFailed(throwable))
+                .subscribe(conversation -> getView().onConversationCreated(conversation)));
     }
 }

@@ -15,8 +15,8 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity<V extends BaseContract.View, P extends BaseContract.Presenter<V>>
         extends AppCompatActivity implements LifecycleRegistryOwner, BaseContract.View {
-    protected P presenter;
     private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+    protected P presenter;
 
     protected abstract P initPresenter();
 

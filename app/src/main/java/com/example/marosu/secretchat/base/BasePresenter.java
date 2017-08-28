@@ -12,8 +12,8 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter<V>, LifecycleObserver {
-    private V view;
     protected CompositeDisposable disposables = new CompositeDisposable();
+    private V view;
 
     @Override
     final public void attachView(V view) {

@@ -7,10 +7,29 @@ import android.os.Parcelable;
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public class User implements Parcelable {
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
     private String id;
     private String firstName;
     private String lastName;
     private String email;
+
+    protected User(Parcel in) {
+        id = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
+    }
 
     public String getId() {
         return id;
@@ -32,13 +51,6 @@ public class User implements Parcelable {
         return firstName + " " + lastName;
     }
 
-    protected User(Parcel in) {
-        id = in.readString();
-        firstName = in.readString();
-        lastName = in.readString();
-        email = in.readString();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -51,17 +63,4 @@ public class User implements Parcelable {
         dest.writeString(lastName);
         dest.writeString(email);
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 }

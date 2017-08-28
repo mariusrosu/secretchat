@@ -19,9 +19,9 @@ import com.example.marosu.secretchat.model.entity.User;
  * Created by Marius-Andrei Rosu on 8/8/2017.
  */
 public class AvatarView extends View {
+    private static final int DEFAULT_VIEW_SIZE = 96;
     private static int DEFAULT_TITLE_COLOR = Color.WHITE;
     private static int DEFAULT_BACKGROUND_COLOR = Color.CYAN;
-    private static final int DEFAULT_VIEW_SIZE = 96;
     private static float DEFAULT_TITLE_SIZE = 25f;
     private static String DEFAULT_TITLE = "A";
 

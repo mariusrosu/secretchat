@@ -15,8 +15,6 @@ import com.example.marosu.secretchat.messages.MessagesActivity;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.search.SearchActivity;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -121,22 +119,5 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
     void onAddClick() {
         final Intent searchIntent = new Intent(this, SearchActivity.class);
         startActivity(searchIntent);
-    }
-
-    //TODO: Remove this after the backend is ready.
-    public String getConversationsJson() {
-        String json;
-        try {
-            InputStream is = getResources().openRawResource(R.raw.user_data);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-        return json;
     }
 }

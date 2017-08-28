@@ -14,30 +14,23 @@ import java.util.List;
  */
 @Entity
 public class Conversation implements Parcelable {
-    private String id;
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Conversation> CREATOR = new Parcelable.Creator<Conversation>() {
+        @Override
+        public Conversation createFromParcel(Parcel in) {
+            return new Conversation(in);
+        }
 
+        @Override
+        public Conversation[] newArray(int size) {
+            return new Conversation[size];
+        }
+    };
+    private String id;
     @SerializedName("createdDtm")
     private long timestamp;
-
     private List<Message> messages;
-
     private List<User> participants;
-
-    public String getId() {
-        return id;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public List<User> getParticipants() {
-        return participants;
-    }
 
     protected Conversation(Parcel in) {
         id = in.readString();
@@ -54,6 +47,22 @@ public class Conversation implements Parcelable {
         } else {
             participants = null;
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
     }
 
     @Override
@@ -78,17 +87,4 @@ public class Conversation implements Parcelable {
             dest.writeList(participants);
         }
     }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Conversation> CREATOR = new Parcelable.Creator<Conversation>() {
-        @Override
-        public Conversation createFromParcel(Parcel in) {
-            return new Conversation(in);
-        }
-
-        @Override
-        public Conversation[] newArray(int size) {
-            return new Conversation[size];
-        }
-    };
 }

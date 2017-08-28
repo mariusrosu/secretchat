@@ -35,6 +35,12 @@ public class EncryptionManager {
         this.context = context;
     }
 
+    public static IdentityKeyPair getIdentityKeyPair(Context context) {
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(ENCRIPTION_KEYS, 0);
+        final String identityKeyPairString = sharedPreferences.getString(IDENTITY_KEY_PAIR, null);
+        return null;
+    }
+
     public void initialize() {
         generateKeys();
         storeKeys();
@@ -63,11 +69,5 @@ public class EncryptionManager {
 
         editor.putInt(REGISTRATION_ID, registrationId);
         Log.d(TAG, "Keys stored...");
-    }
-
-    public static IdentityKeyPair getIdentityKeyPair(Context context) {
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(ENCRIPTION_KEYS, 0);
-        final String identityKeyPairString = sharedPreferences.getString(IDENTITY_KEY_PAIR, null);
-        return null;
     }
 }

@@ -10,15 +10,10 @@ import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.User;
 import com.example.marosu.secretchat.util.comparator.ConversationComparator;
 import com.example.marosu.secretchat.util.comparator.UserComparator;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Single;
 
 /**
  * Created by Marius-Andrei Rosu on 8/7/2017.
@@ -38,9 +33,8 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
         disposables.add(api.getConversations(Session.getSession().getUserId())
                 .map(conversations -> mapConversations(conversations))
                 .compose(applySchedulers())
-                .subscribe(
-                        conversations -> handleConversations(conversations),
-                        throwable -> handleConversationError(throwable)));
+                .doOnError(throwable -> handleConversationError(throwable))
+                .subscribe(conversations -> handleConversations(conversations)));
     }
 
     private void handleConversations(List<Conversation> conversations) {
@@ -63,15 +57,5 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
         }
         Collections.sort(conversations, conversationComparator);
         return conversations;
-    }
-
-    //TODO: Remove this after the backend is ready.
-    private Single<List<Conversation>> getData() {
-        final String conversationsJson = getView().getConversationsJson();
-        Log.d("Debugging", conversationsJson);
-        final List<Conversation> conversations = new Gson().fromJson(conversationsJson,
-                new TypeToken<List<Conversation>>() {
-                }.getType());
-        return Single.just(conversations).delay(2000, TimeUnit.MILLISECONDS);
     }
 }

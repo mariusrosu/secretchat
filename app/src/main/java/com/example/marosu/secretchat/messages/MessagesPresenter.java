@@ -56,9 +56,8 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
     public void refresh() {
         disposables.add(api.getConversation(conversation.getId())
                 .compose(applySchedulers())
-                .subscribe(
-                        conversation -> getView().onConversationLoaded(conversation),
-                        throwable -> getView().onConversationFailed()));
+                .doOnError(throwable -> getView().onConversationFailed())
+                .subscribe(conversation -> getView().onConversationLoaded(conversation)));
     }
 
     private void saveMessages(List<Message> messages) {

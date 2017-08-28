@@ -14,21 +14,28 @@ import com.google.gson.annotations.SerializedName;
  */
 @Entity(tableName = "message")
 public class Message implements Parcelable {
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel in) {
+            return new Message(in);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
     @PrimaryKey
     private String id;
-
     @ColumnInfo(name = "conversation_id")
     private String conversationId;
-
     @ColumnInfo(name = "content")
     private String content;
-
     @ColumnInfo(name = "sender_id")
     private String senderId;
-
     @ColumnInfo(name = "sending")
     private boolean sending;
-
     @ColumnInfo(name = "timestamp")
     @SerializedName("createdDtm")
     private long timestamp;
@@ -42,6 +49,15 @@ public class Message implements Parcelable {
         this.conversationId = conversationId;
         this.senderId = senderId;
         this.sending = sending;
+    }
+
+    protected Message(Parcel in) {
+        id = in.readString();
+        conversationId = in.readString();
+        content = in.readString();
+        senderId = in.readString();
+        sending = in.readByte() != 0x00;
+        timestamp = in.readLong();
     }
 
     public String getId() {
@@ -92,6 +108,21 @@ public class Message implements Parcelable {
         this.timestamp = timestamp;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(conversationId);
+        dest.writeString(content);
+        dest.writeString(senderId);
+        dest.writeByte((byte) (sending ? 0x01 : 0x00));
+        dest.writeLong(timestamp);
+    }
+
     public static class Builder {
         private String content;
         private String conversationId;
@@ -135,41 +166,4 @@ public class Message implements Parcelable {
             return new Message(content, conversationId, senderId, sending);
         }
     }
-
-    protected Message(Parcel in) {
-        id = in.readString();
-        conversationId = in.readString();
-        content = in.readString();
-        senderId = in.readString();
-        sending = in.readByte() != 0x00;
-        timestamp = in.readLong();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(conversationId);
-        dest.writeString(content);
-        dest.writeString(senderId);
-        dest.writeByte((byte) (sending ? 0x01 : 0x00));
-        dest.writeLong(timestamp);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
-        @Override
-        public Message createFromParcel(Parcel in) {
-            return new Message(in);
-        }
-
-        @Override
-        public Message[] newArray(int size) {
-            return new Message[size];
-        }
-    };
 }
