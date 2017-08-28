@@ -22,7 +22,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@+id/conversation_date"
         android:layout_toRightOf="@+id/conversation_avatar"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingRight="2dp"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         tools:text="Conversation Title" />
@@ -34,6 +38,8 @@
         android:layout_below="@+id/conversation_title"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/conversation_avatar"
+        android:ellipsize="end"
+        android:lines="1"
         tools:text="Conversation preview" />
 
     <TextView
@@ -41,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        tools:text="Yesterday"/>
+        tools:text="Yesterday" />
 
     <FrameLayout
         android:layout_width="match_parent"
