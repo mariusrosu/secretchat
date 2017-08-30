@@ -40,6 +40,7 @@ dependencies {
 
     //Android Support
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-messaging:11.0.2'
     compile 'com.android.support:recyclerview-v7:26.0.0'
     compile 'com.android.support:design:26.0.0'
 
@@ -80,3 +81,6 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+
+apply plugin: 'com.google.gms.google-services'
