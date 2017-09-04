@@ -17,6 +17,7 @@ import com.example.marosu.secretchat.model.db.entity.User;
 import com.example.marosu.secretchat.model.pojo.FullConversation;
 import com.example.marosu.secretchat.util.comparator.ConversationComparator;
 import com.example.marosu.secretchat.util.comparator.UserComparator;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,6 +29,7 @@ import io.reactivex.Observable;
  * Created by Marius-Andrei Rosu on 8/7/2017.
  */
 public final class ConversationsPresenter extends BasePresenter<ConversationsView> {
+    private Gson gson;
     private SecretChatApi api;
     private SecretChatDatabase db;
     private Comparator<User> userComparator;
@@ -42,9 +44,14 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
 
     public void getConversations() {
         disposables.add(api.getConversations(Session.getSession().getUserId())
+<<<<<<< Updated upstream
                 .map(response -> mapAndStoreConverations(response))
                 //.map(conversations -> mapConversations(conversations))
+=======
+>>>>>>> Stashed changes
                 .compose(applySchedulers())
+                .map(conversations -> mapConversations(conversations))
+                .map(conversations -> storeConversations(conversations))
                 .doOnError(throwable -> handleConversationError(throwable))
                 .subscribe(conversations -> handleConversations(conversations)));
     }
@@ -109,5 +116,9 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
         disposables.add(Observable.fromCallable(() -> db.messageDao().insertAll(messages))
                 .compose(applySchedulers())
                 .subscribe());
+    }
+
+    private List<Conversation> storeConversations(List<Conversation> conversations) {
+
     }
 }

@@ -2,7 +2,6 @@ package com.example.marosu.secretchat.messages;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.marosu.secretchat.Session;
 import com.example.marosu.secretchat.base.BasePresenter;
@@ -13,12 +12,6 @@ import com.example.marosu.secretchat.model.db.Database;
 import com.example.marosu.secretchat.model.db.SecretChatDatabase;
 import com.example.marosu.secretchat.model.db.entity.Conversation;
 import com.example.marosu.secretchat.model.db.entity.Message;
-
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATION_EXTRA;
 import static com.example.marosu.secretchat.messages.MessagesActivity.CONVERSATION_ID_EXTRA;
@@ -44,14 +37,14 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
         }
     }
 
-    public void getMessages() {
+    /*public void getMessages() {
         disposables.add(db.messageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         messages -> Log.d("Debugging", "getDbMessages() -> onSuccess() -> messages.size() = " + messages.size()),
                         throwable -> Log.d("Debugging", "getDbMessages() -> onError() -> t = " + throwable.getStackTrace())));
-    }
+    }*/
 
     public void refresh() {
         disposables.add(api.getConversation(conversation.getId())
@@ -60,11 +53,11 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
                 .subscribe(conversation -> getView().onConversationLoaded(conversation)));
     }
 
-    private void saveMessages(List<Message> messages) {
+    /*private void saveMessages(List<Message> messages) {
         disposables.add(Observable.fromCallable(() -> db.messageDao().insertAll(messages))
                 .compose(applySchedulers())
                 .subscribe());
-    }
+    }*/
 
     public void sendMessage(String content) {
         final MessageBody body

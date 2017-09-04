@@ -59,7 +59,7 @@ class SearchActivity : BaseActivity<SearchView, SearchPresenter>(), SearchView {
 
     override fun onConversationCreated(conversation: Conversation) {
         val messagesIntent = Intent(this, MessagesActivity::class.java)
-        messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation)
+        //messagesIntent.putExtra(MessagesActivity.CONVERSATION_EXTRA, conversation)
         startActivity(messagesIntent)
     }
 
