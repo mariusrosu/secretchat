@@ -45,7 +45,7 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     public void getMessages() {
-        disposables.add(db.messageDao().getAll()
+        getDisposables().add(db.messageDao().getAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -54,14 +54,14 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
     }
 
     public void refresh() {
-        disposables.add(api.getConversation(conversation.getId())
+        getDisposables().add(api.getConversation(conversation.getId())
                 .compose(applySchedulers())
                 .doOnError(throwable -> getView().onConversationFailed())
                 .subscribe(conversation -> getView().onConversationLoaded(conversation)));
     }
 
     private void saveMessages(List<Message> messages) {
-        disposables.add(Observable.fromCallable(() -> db.messageDao().insertAll(messages))
+        getDisposables().add(Observable.fromCallable(() -> db.messageDao().insertAll(messages))
                 .compose(applySchedulers())
                 .subscribe());
     }
@@ -76,7 +76,7 @@ public final class MessagesPresenter extends BasePresenter<MessagesView> {
                 .setBody(body)
                 .build();
 
-        disposables.add(api.sendMessage(body)
+        getDisposables().add(api.sendMessage(body)
                 .compose(applySchedulers())
                 .subscribe(
                         sentMessage -> getView().onMessageSent(sentMessage),

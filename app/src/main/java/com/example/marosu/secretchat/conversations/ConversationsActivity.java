@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.marosu.secretchat.R;
-import com.example.marosu.secretchat.base.BaseActivity;
+import com.example.marosu.secretchat.base.BaseActivityKt;
 import com.example.marosu.secretchat.messages.MessagesActivity;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.search.SearchActivity;
@@ -23,7 +23,7 @@ import butterknife.OnClick;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public final class ConversationsActivity extends BaseActivity<ConversationsView, ConversationsPresenter>
+public final class ConversationsActivity extends BaseActivityKt<ConversationsView, ConversationsPresenter>
         implements ConversationsView {
     @BindView(R.id.chat_list_loading)
     ProgressBar loadingSpinner;
@@ -57,8 +57,8 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
         super.onCreate(savedInstanceState);
         chatList.setLayoutManager(new LinearLayoutManager(this));
         chatList.setHasFixedSize(true);
-        chatListRefresh.setOnRefreshListener(() -> presenter.getConversations());
-        presenter.getConversations();
+        chatListRefresh.setOnRefreshListener(() -> getPresenter().getConversations());
+        getPresenter().getConversations();
     }
 
     @Override
@@ -112,7 +112,7 @@ public final class ConversationsActivity extends BaseActivity<ConversationsView,
         chatListEmpty.setVisibility(GONE);
         chatListError.setVisibility(GONE);
         chatList.setVisibility(GONE);
-        presenter.getConversations();
+        getPresenter().getConversations();
     }
 
     @OnClick(R.id.chat_list_add)

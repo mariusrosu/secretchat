@@ -30,7 +30,7 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
     }
 
     public void getConversations() {
-        disposables.add(api.getConversations(Session.getSession().getUserId())
+        getDisposables().add(api.getConversations(Session.getSession().getUserId())
                 .map(conversations -> mapConversations(conversations))
                 .compose(applySchedulers())
                 .doOnError(throwable -> handleConversationError(throwable))
