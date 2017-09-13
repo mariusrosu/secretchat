@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/search_input"
+        android:id="@+id/searchInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -31,7 +31,7 @@
         android:src="@mipmap/ic_search" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_recycler"
+        android:id="@+id/searchRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search_input" />

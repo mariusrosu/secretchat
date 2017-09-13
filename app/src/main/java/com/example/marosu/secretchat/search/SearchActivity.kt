@@ -3,15 +3,14 @@ package com.example.marosu.secretchat.search
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.widget.EditText
 import android.widget.Toast
 import com.example.marosu.secretchat.R
 import com.example.marosu.secretchat.base.BaseActivity
 import com.example.marosu.secretchat.messages.MessagesActivity
 import com.example.marosu.secretchat.model.entity.Conversation
 import com.example.marosu.secretchat.model.entity.User
+import kotlinx.android.synthetic.main.activity_search.*
 
 /**
  * Created by Marius-Andrei Rosu on 8/29/2017.
@@ -21,26 +20,21 @@ class SearchActivity : BaseActivity<SearchView, SearchPresenter>(), SearchView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val searchInput = findViewById<EditText>(R.id.search_input)
-        val searchList = findViewById<RecyclerView>(R.id.search_recycler)
 
-        initializeAdapter()
-        searchList.adapter = adapter
-        searchList.setHasFixedSize(true)
-        searchList.layoutManager = LinearLayoutManager(this)
+        adapter = SearchAdapter(mutableListOf())
+        adapter.clickSubject.subscribe { user -> presenter.createConversation(user) }
+
+        searchRecycler.adapter = adapter
+        searchRecycler.setHasFixedSize(true)
+        searchRecycler.layoutManager = LinearLayoutManager(this)
 
         searchInput.addTextChangedListener(object : SearchInputWatcher() {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s!!.length > 2) {
-                    presenter.searchUsers(s)
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                if ((text?.length ?: -1) > 2) {
+                    text?.let { presenter.searchUsers(it) }
                 }
             }
         })
-    }
-
-    private fun initializeAdapter() {
-        adapter = SearchAdapter(ArrayList<User>())
-        adapter.clickSubject.subscribe({ user -> presenter.createConversation(user) })
     }
 
     override fun initPresenter() = SearchPresenter()
