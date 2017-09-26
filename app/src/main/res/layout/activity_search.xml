@@ -17,14 +17,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/search_input"
+        android:layout_below="@id/searchInput"
         android:background="@color/divider_color" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/search_input"
-        android:layout_alignTop="@id/search_input"
+        android:layout_alignBottom="@id/searchInput"
+        android:layout_alignTop="@id/searchInput"
         android:layout_marginLeft="8dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
@@ -34,6 +34,6 @@
         android:id="@+id/searchRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_input" />
+        android:layout_below="@id/searchInput" />
 
 </RelativeLayout>

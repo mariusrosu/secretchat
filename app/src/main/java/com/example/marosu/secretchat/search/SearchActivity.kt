@@ -18,6 +18,10 @@ import kotlinx.android.synthetic.main.activity_search.*
 class SearchActivity : BaseActivity<SearchView, SearchPresenter>(), SearchView {
     private lateinit var adapter: SearchAdapter
 
+    override fun initPresenter() = SearchPresenter()
+
+    override fun getLayoutId() = R.layout.activity_search
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,10 +40,6 @@ class SearchActivity : BaseActivity<SearchView, SearchPresenter>(), SearchView {
             }
         })
     }
-
-    override fun initPresenter() = SearchPresenter()
-
-    override fun getLayoutId() = R.layout.activity_search
 
     override fun onUsersLoaded(users: List<User>) {
         Log.d("Debugging", "SearchActivity - onUsersLoaded(): users = ${users.size}")

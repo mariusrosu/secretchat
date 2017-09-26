@@ -31,8 +31,8 @@ public final class ConversationsPresenter extends BasePresenter<ConversationsVie
 
     public void getConversations() {
         disposables.add(api.getConversations(Session.getSession().getUserId())
-                .map(conversations -> mapConversations(conversations))
                 .compose(applySchedulers())
+                .map(conversations -> mapConversations(conversations))
                 .doOnError(throwable -> handleConversationError(throwable))
                 .subscribe(conversations -> handleConversations(conversations)));
     }
