@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity<V extends BaseContract.View, P extends BaseContract.Presenter<V>>
         extends AppCompatActivity implements LifecycleRegistryOwner, BaseContract.View {
-    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+    private final LifecycleRegistry registry = new LifecycleRegistry(this);
     protected P presenter;
 
     protected abstract P initPresenter();
@@ -24,7 +24,7 @@ public abstract class BaseActivity<V extends BaseContract.View, P extends BaseCo
 
     @Override
     public LifecycleRegistry getLifecycle() {
-        return mRegistry;
+        return registry;
     }
 
     @CallSuper
@@ -39,7 +39,7 @@ public abstract class BaseActivity<V extends BaseContract.View, P extends BaseCo
             viewModel.setPresenter(initPresenter());
         }
         presenter = viewModel.getPresenter();
-        presenter.attachLifecycle(getLifecycle());
+        presenter.attachLifecycle(registry);
         presenter.attachView((V) this);
     }
 
@@ -47,7 +47,7 @@ public abstract class BaseActivity<V extends BaseContract.View, P extends BaseCo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.detachLifecycle(getLifecycle());
+        presenter.detachLifecycle(registry);
         presenter.detachView();
     }
 }

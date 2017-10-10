@@ -15,7 +15,7 @@ class SearchPresenter : BasePresenter<SearchView>() {
     private var api: SecretChatApi = SecretChatClient.createApi()
 
     fun searchUsers(input: CharSequence) {
-        disposables.add(api.searchUsers(input.toString())
+        disposables.add(api.searchUsers(input)
                 .compose(applySchedulers())
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .doOnError { error -> view.onUsersFailed(error) }

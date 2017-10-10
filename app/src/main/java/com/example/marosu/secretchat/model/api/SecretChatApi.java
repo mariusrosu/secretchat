@@ -40,5 +40,5 @@ public interface SecretChatApi {
     Observable<Object> login(@Body LoginBody body);
 
     @GET("users/search")
-    Observable<List<User>> searchUsers(@Query("searchQuery") String searchQuery);
+    Observable<List<User>> searchUsers(@Query("searchQuery") CharSequence searchQuery);
 }

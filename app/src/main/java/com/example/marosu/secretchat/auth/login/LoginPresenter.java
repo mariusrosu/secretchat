@@ -9,10 +9,7 @@ import org.whispersystems.libsignal.logging.Log;
 
 import io.reactivex.Observable;
 
-/**
- * Created by Marius-Andrei Rosu on 8/7/2017.
- */
-public final class LoginPresenter extends BasePresenter<LoginView> {
+final class LoginPresenter extends BasePresenter<LoginView> {
     private SecretChatApi api;
 
     public LoginPresenter() {
@@ -34,8 +31,8 @@ public final class LoginPresenter extends BasePresenter<LoginView> {
         disposables.add(simulateLogin()
                 .compose(applySchedulers())
                 .doOnSubscribe(disposable -> getView().showLoading())
-                .doOnError(throwable -> handleLoginFail(throwable))
-                .doOnNext(response -> handleLoginSuccess(response))
+                .doOnError(this::handleLoginFail)
+                .doOnNext(this::handleLoginSuccess)
                 .subscribe());
     }
 
