@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
  * Created by Marius-Andrei Rosu on 8/29/2017.
  */
 class SearchPresenter : BasePresenter<SearchView>() {
-    private var api: SecretChatApi = SecretChatClient.createApi()
+    private val api: SecretChatApi = SecretChatClient.createApi()
 
     fun searchUsers(input: CharSequence) {
         disposables.add(api.searchUsers(input)

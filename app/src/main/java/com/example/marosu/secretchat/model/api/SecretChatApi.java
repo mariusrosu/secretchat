@@ -3,6 +3,7 @@ package com.example.marosu.secretchat.model.api;
 import com.example.marosu.secretchat.model.body.ConversationBody;
 import com.example.marosu.secretchat.model.body.LoginBody;
 import com.example.marosu.secretchat.model.body.MessageBody;
+import com.example.marosu.secretchat.model.body.RegisterBody;
 import com.example.marosu.secretchat.model.entity.Conversation;
 import com.example.marosu.secretchat.model.entity.Message;
 import com.example.marosu.secretchat.model.entity.User;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -36,8 +38,11 @@ public interface SecretChatApi {
     @POST("messages")
     Observable<Message> sendMessage(@Body MessageBody body);
 
-    @POST("users/login")
-    Observable<Object> login(@Body LoginBody body);
+    @POST("login")
+    Observable<Response<Void>> login(@Body LoginBody body);
+
+    @POST("users/sign-up")
+    Observable<User> register(@Body RegisterBody register);
 
     @GET("users/search")
     Observable<List<User>> searchUsers(@Query("searchQuery") CharSequence searchQuery);

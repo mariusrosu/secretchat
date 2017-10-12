@@ -1,10 +1,13 @@
 package com.example.marosu.secretchat.model.api;
 
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.marosu.secretchat.auth.register.RegisterPresenter.AUTHORIZATION;
 
 /**
  * Created by Marius-Andrei Rosu on 8/9/2017.
@@ -35,6 +38,12 @@ public final class SecretChatClient {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
+        httpClient.addInterceptor(chain -> {
+            final Request request = chain.request().newBuilder()
+                    .addHeader(AUTHORIZATION, "value")
+                    .build();
+            return chain.proceed(request);
+        });
 
         return httpClient.build();
     }
